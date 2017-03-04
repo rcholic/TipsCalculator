@@ -19,13 +19,15 @@ protocol ScratchLabelDelegate: class {
     
     @IBInspectable var step: CGFloat = 0.1
     
+    @IBInspectable var fontSize: CGFloat = 35
+    
     @IBInspectable var number: CGFloat = 0 {
         didSet {
             guard number > 0 else {
                 self.numberLabel.text = ""
                 return
             }
-            self.numberLabel.text = "$\(Double(number).roundTo(places: 1))"
+            self.numberLabel.text = "$\(Double(number).roundTo(places: 2))"
         }
     }
     
@@ -74,6 +76,16 @@ protocol ScratchLabelDelegate: class {
         panGesture = nil
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touches began!")
+    }
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        super.hitTest(point, with: event)
+//        print("get hit!")
+//        return self
+//    }
+    
     @objc func tapped(_ sender: UIPanGestureRecognizer) {
         
         var beginPoint: CGPoint = CGPoint.zero
@@ -111,7 +123,7 @@ protocol ScratchLabelDelegate: class {
         let label = UILabel(frame: CGRect.zero)
         label.sizeToFit()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 17.0)
+        label.font = UIFont.systemFont(ofSize: self.fontSize)
         label.textAlignment = .center
         
         return label
