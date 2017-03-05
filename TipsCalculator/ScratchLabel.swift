@@ -9,7 +9,6 @@
 import UIKit
 
 protocol ScratchLabelDelegate: class {
-    
     func scratchLabel(_ scratchLabel: ScratchLabel, number: CGFloat)
 }
 
@@ -27,6 +26,7 @@ protocol ScratchLabelDelegate: class {
                 self.numberLabel.text = ""
                 return
             }
+            // TODO: replace $ with local currency in the settings
             self.numberLabel.text = "$\(Double(number).roundTo(places: 2))"
         }
     }
@@ -55,11 +55,18 @@ protocol ScratchLabelDelegate: class {
     }
     
     fileprivate func commonInit() {
-        
-        numberLabel.frame = self.bounds
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin,
+            .flexibleBottomMargin]
         
         self.addSubview(numberLabel)
         addGesture()
+    }
+    
+    override func layoutSubviews() {
+        numberLabel.frame = self.bounds
+        let size = self.intrinsicContentSize
+        self.layoutIfNeeded()
     }
     
     fileprivate func addGesture() {
@@ -80,12 +87,6 @@ protocol ScratchLabelDelegate: class {
         print("touches began!")
     }
     
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        super.hitTest(point, with: event)
-//        print("get hit!")
-//        return self
-//    }
-    
     @objc func tapped(_ sender: UIPanGestureRecognizer) {
         
         var beginPoint: CGPoint = CGPoint.zero
@@ -102,7 +103,6 @@ protocol ScratchLabelDelegate: class {
             //            guard curPanPoint.x >= self.bounds.minX && curPanPoint.x <= self.bounds.maxX else { return }
             let dx: CGFloat = curPanPoint.x - beginPoint.x
             let n = dx.truncatingRemainder(dividingBy: 10.0)
-            print("remainder is: \(n)")
             
             guard number > 0 else {
                 return
@@ -111,8 +111,6 @@ protocol ScratchLabelDelegate: class {
             self.number = number + n * step
             
             delegate?.scratchLabel(self, number: self.number) // notify the changes
-            
-            print("moved dist: \(dx)")
             
         default:
             beginPoint = CGPoint.zero
@@ -125,6 +123,7 @@ protocol ScratchLabelDelegate: class {
         label.text = ""
         label.font = UIFont.systemFont(ofSize: self.fontSize)
         label.textAlignment = .center
+        label.clipsToBounds = true
         
         return label
     }()

@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet var subtotalTextField: UITextField!
     
     @IBOutlet var tipPercentageLabel: UILabel!
-    
-    @IBOutlet var scratchLabel: ScratchLabel!
+
+    @IBOutlet weak var scratchLabel: ScratchLabel!
     
     var currentSubtotal = ""
     
@@ -24,11 +24,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        subtotalTextField.delegate = self
-        scratchLabel.delegate = self
+        setupView()
     }
     
-    
+    fileprivate func setupView() {
+        subtotalTextField.delegate = self
+        scratchLabel.delegate = self
+        subtotalTextField.placeholder = "$" // TODO: replace with local currency in the setting
+    }
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -57,17 +60,6 @@ extension ViewController: UITextFieldDelegate {
         }
         
         return false
-    }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if let text = textField.text {
-            print("begin editing, text: \(text)")
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text {
-            print("did end editing: \(text)")
-        }
     }
 }
 
