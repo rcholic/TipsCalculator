@@ -16,6 +16,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var scratchLabel: ScratchLabel!
     
+    @IBOutlet weak var tipSlider: TipSlider!
+    
     var currentSubtotal = ""
     
     var subtotal: Double = 0
@@ -29,6 +31,7 @@ class ViewController: UIViewController {
     
     fileprivate func setupView() {
         subtotalTextField.delegate = self
+        tipSlider.delegate = self
         scratchLabel.delegate = self
         subtotalTextField.placeholder = "$" // TODO: replace with local currency in the setting
     }
@@ -55,7 +58,7 @@ extension ViewController: UITextFieldDelegate {
             }
         }
         if let sub = Double(currentSubtotal) {
-            subtotal = sub
+            subtotal = sub/100.0
             print("currentSubtotal: \(subtotal)")
         }
         
@@ -75,6 +78,18 @@ extension ViewController: ScratchLabelDelegate {
         tipsPercentage = (Double(number) - subtotal) / subtotal
         let tipPct = (tipsPercentage * 100).roundTo(places: 2)
         self.tipPercentageLabel.text = "\(tipPct)"
+        self.tipSlider.fraction = CGFloat(tipsPercentage)
+    }
+}
+
+extension ViewController: TipSliderDelegate {
+    func tipSlider(_ slider: TipSlider, value changedTo: Float) {
+        
+        // FIXME: subtotal here is 100 times larger! why?
+        guard subtotal > 0 else { return }
+        print("slider value: \(changedTo), subtotal: \(subtotal)")
+        
+        self.scratchLabel.number = (1.0 + CGFloat(changedTo)) * CGFloat(subtotal)
     }
 }
 

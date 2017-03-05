@@ -16,6 +16,7 @@
 		EB6A68941E67A42B00F6412D /* TipsCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68931E67A42B00F6412D /* TipsCalculatorUITests.swift */; };
 		EB6A68A41E67A46B00F6412D /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68A31E67A46B00F6412D /* Double+Ext.swift */; };
 		EB6A68A61E67A49500F6412D /* ScratchLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68A51E67A49500F6412D /* ScratchLabel.swift */; };
+		EB8A6E831E6CB7D300AF4DB7 /* TipSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		EB6A68951E67A42B00F6412D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB6A68A31E67A46B00F6412D /* Double+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		EB6A68A51E67A49500F6412D /* ScratchLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScratchLabel.swift; sourceTree = "<group>"; };
+		EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				EB6A68A51E67A49500F6412D /* ScratchLabel.swift */,
+				EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB8A6E831E6CB7D300AF4DB7 /* TipSlider.swift in Sources */,
 				EB6A68761E67A42B00F6412D /* ViewController.swift in Sources */,
 				EB6A68A61E67A49500F6412D /* ScratchLabel.swift in Sources */,
 				EB6A68741E67A42B00F6412D /* AppDelegate.swift in Sources */,
@@ -537,6 +541,7 @@
 				EB6A689A1E67A42B00F6412D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EB6A689B1E67A42B00F6412D /* Build configuration list for PBXNativeTarget "TipsCalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -545,6 +550,7 @@
 				EB6A689D1E67A42B00F6412D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EB6A689E1E67A42B00F6412D /* Build configuration list for PBXNativeTarget "TipsCalculatorUITests" */ = {
 			isa = XCConfigurationList;
@@ -553,6 +559,7 @@
 				EB6A68A01E67A42B00F6412D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
