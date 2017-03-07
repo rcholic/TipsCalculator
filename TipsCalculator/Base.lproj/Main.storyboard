@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Tips Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TipsCalculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xDE-kl-SRw">
-                                <rect key="frame" x="16" y="72" width="343" height="156"/>
+                                <rect key="frame" x="16" y="72" width="343" height="118"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="line" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="yBj-6s-Dfq">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
@@ -51,12 +51,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJD-yY-kaE">
-                                        <rect key="frame" x="282" y="126" width="61" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="rWE-JA-Txw" firstAttribute="leading" secondItem="xDE-kl-SRw" secondAttribute="leading" id="f5v-9w-Ybg"/>
@@ -78,7 +72,7 @@
                                         <real key="value" value="0.10000000000000001"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="number">
-                                        <real key="value" value="100"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -90,11 +84,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="xDE-kl-SRw" secondAttribute="trailing" id="ukp-cQ-GV1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="7ef-BC-wUy"/>
+                    <navigationItem key="navigationItem" title="Tips Calculator" id="7ef-BC-wUy"/>
                     <connections>
                         <outlet property="scratchLabel" destination="aTi-oj-3za" id="aRF-je-ZMJ"/>
                         <outlet property="subtotalTextField" destination="yBj-6s-Dfq" id="krG-Ie-EZo"/>
-                        <outlet property="tipPercentageLabel" destination="pJD-yY-kaE" id="i3P-TR-9Mn"/>
                         <outlet property="tipSlider" destination="rWE-JA-Txw" id="aAC-un-t9u"/>
                     </connections>
                 </viewController>

@@ -16,7 +16,7 @@ import UIKit
 class TipSlider: UIControl {
     
     @IBInspectable
-    var fraction: CGFloat = 0.1 {
+    var fraction: CGFloat = 0.0 {
         didSet {
             self.slider.value = Float(fraction)
             self.valueChanged(sender: self.slider)
@@ -48,6 +48,15 @@ class TipSlider: UIControl {
     
     @IBInspectable var borderColor: UIColor = #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1)
     
+    let coinWidth: CGFloat = 40.0
+    
+    let singleCoinImage = UIImage(named: "single_coin")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    
+    let doubleCoinImage = UIImage(named: "double_coin")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    
+    let tripleCoinImage = UIImage(named: "triple_coins")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+    
+    
     var slider: UISlider!
     
     weak var delegate: TipSliderDelegate?
@@ -63,13 +72,43 @@ class TipSlider: UIControl {
     }
     
     func commonInit() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         slider = UISlider(frame: CGRect.zero)
         slider.clipsToBounds = true
-        slider.setThumbImage(UIImage(named: ""), for: UIControlState.highlighted)
         slider.addTarget(self, action: #selector(self.valueChanged(sender:)), for: UIControlEvents.valueChanged)
-        self.fraction = 0
         addSubview(slider)
         addSubview(arrowLabelView)
+        
+//        let singleCoinImageView = UIImageView(image: singleCoinImage)
+//        singleCoinImageView.frame = CGRect(x: 0, y: 0, width: coinWidth, height: coinWidth)
+//        singleCoinImageView.contentMode = .scaleAspectFill
+//        singleCoinImageView.tintColor = tintColor
+//        
+//        let tripleCoinImageView = UIImageView(image: tripleCoinImage)
+//        tripleCoinImageView.frame = CGRect(x: self.bounds.width - coinWidth, y: 0, width: coinWidth, height: coinWidth)
+//        tripleCoinImageView.contentMode = .scaleAspectFill
+//        
+//        let vStackView = UIStackView(frame: CGRect(x: coinWidth, y: 0, width: self.bounds.width - 2 * coinWidth, height: self.bounds.height))
+//        
+//        vStackView.addArrangedSubview(arrowLabelView)
+//        vStackView.addArrangedSubview(slider)
+//        vStackView.axis = .vertical
+//        vStackView.distribution = .equalSpacing
+//        vStackView.alignment = .leading
+//        vStackView.spacing = 0
+//        vStackView.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(vStackView)
+//        
+//        let hStackView = UIStackView(frame: self.bounds)
+//        hStackView.addArrangedSubview(singleCoinImageView)
+//        hStackView.addArrangedSubview(vStackView)
+//        hStackView.addArrangedSubview(tripleCoinImageView)
+//        hStackView.axis = .horizontal
+//        hStackView.distribution = .equalSpacing
+//        hStackView.alignment = .center
+//        hStackView.spacing = 0
+//        hStackView.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(hStackView)
     }
     
     deinit {
@@ -80,17 +119,41 @@ class TipSlider: UIControl {
     
     
     override func layoutSubviews() {
-        //        arrowLabelView.frame = CGRect(x: 0, y: 0, width: self.bounds.width/3, height: self.bounds.height / 2)
-        arrowLabelView.frame.origin = CGPoint(x: -5, y: 0)
+
         slider.frame = CGRect(x: 0, y: arrowLabelView.bounds.height, width: self.bounds.width, height: self.bounds.height/2)
+
+        arrowLabelView.center = CGPoint(x: CGFloat(slider.value) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
     }
     
     @objc func valueChanged(sender: UISlider) {
         
         let curValue = self.slider.value
-        //        curValue += curValue > 0.5 ? -0.08 : 0.08 // slightly adjust the position (workaround)
-        self.label.text = "\(Double(curValue * 100).roundTo(places: 1))%" // update label
-        arrowLabelView.center = CGPoint(x: CGFloat(curValue) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
+        var curX = curValue
+        let text = curValue > 0 ? "\(Double(curValue * 100).roundTo(places: 1))%" : "Tips?"
+        self.label.text = text // update label
+        
+        switch curValue {
+        case 0..<0.2:
+            slider.setThumbImage(singleCoinImage, for: [.normal])
+            slider.setThumbImage(singleCoinImage, for: [.highlighted])
+            if curValue == 0 {
+                curX = curValue + 0.035
+            }
+        case 0.2..<0.5:
+            slider.setThumbImage(doubleCoinImage, for: .normal)
+            slider.setThumbImage(doubleCoinImage, for: .highlighted)
+        case 0.5..<1.1:
+            slider.setThumbImage(tripleCoinImage, for: [.normal])
+            slider.setThumbImage(tripleCoinImage, for: [.highlighted])
+            if curValue == 1.0 {
+                curX = curValue - 0.035
+            }
+            
+        default:
+            curX = curValue
+        }
+        // move the arrow label along
+        arrowLabelView.center = CGPoint(x: CGFloat(curX) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
         
         delegate?.tipSlider(self, value: curValue) // notify delegate of the changed value
     }

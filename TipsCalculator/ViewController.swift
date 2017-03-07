@@ -11,14 +11,12 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var subtotalTextField: UITextField!
-    
-    @IBOutlet var tipPercentageLabel: UILabel!
 
     @IBOutlet weak var scratchLabel: ScratchLabel!
     
     @IBOutlet weak var tipSlider: TipSlider!
     
-    var currentSubtotal = ""
+    var subtotalText = ""
     
     var subtotal: Double = 0
     
@@ -32,6 +30,7 @@ class ViewController: UIViewController {
     fileprivate func setupView() {
         subtotalTextField.delegate = self
         tipSlider.delegate = self
+        tipSlider.fraction = CGFloat(tipsPercentage) // TODO: replace with default in settings
         scratchLabel.delegate = self
         subtotalTextField.placeholder = "$" // TODO: replace with local currency in the setting
     }
@@ -45,21 +44,24 @@ extension ViewController: UITextFieldDelegate {
         
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
-            currentSubtotal += string
-            if let subtotal = formatCurrency(currentSubtotal) {
+            subtotalText += string
+            if let subtotal = formatCurrency(subtotalText) {
                 self.subtotalTextField.text = "\(subtotal)"
             }
         default:
-            if string.characters.count == 0 && currentSubtotal.characters.count != 0 {
-                currentSubtotal = String(currentSubtotal.characters.dropLast())
-                if let subtotal = formatCurrency(currentSubtotal) {
+            if string.characters.count == 0 && subtotalText.characters.count != 0 {
+                subtotalText = String(subtotalText.characters.dropLast())
+                if let subtotal = formatCurrency(subtotalText) {
                     self.subtotalTextField.text = "\(subtotal)"
                 }
             }
         }
-        if let sub = Double(currentSubtotal) {
+        if let sub = Double(subtotalText) {
+            scratchLabel.isHidden = false
             subtotal = sub/100.0
-            print("currentSubtotal: \(subtotal)")
+            self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(subtotal)
+        } else {
+            scratchLabel.isHidden = true
         }
         
         return false
@@ -77,15 +79,13 @@ extension ViewController: ScratchLabelDelegate {
         
         tipsPercentage = (Double(number) - subtotal) / subtotal
         let tipPct = (tipsPercentage * 100).roundTo(places: 2)
-        self.tipPercentageLabel.text = "\(tipPct)"
-        self.tipSlider.fraction = CGFloat(tipsPercentage)
+        self.tipSlider.fraction = CGFloat(tipsPercentage) // update tipSlider
     }
 }
 
 extension ViewController: TipSliderDelegate {
     func tipSlider(_ slider: TipSlider, value changedTo: Float) {
-        
-        // FIXME: subtotal here is 100 times larger! why?
+
         guard subtotal > 0 else { return }
         print("slider value: \(changedTo), subtotal: \(subtotal)")
         
@@ -121,7 +121,7 @@ extension ViewController {
 //        let formatter = NumberFormatter()
 //        formatter.numberStyle = .currency
 //        formatter.locale = findLocaleByCurrencyCode("USD")
-//        let numberFromField = (NSString(string: currentSubtotal).doubleValue)/100
+//        let numberFromField = (NSString(string: subtotalText).doubleValue)/100
 //        if let temp = formatter.string(from: NSNumber(value: numberFromField)) {
 //            self.subtotalTextField.text = String(temp.characters.dropFirst())
 //        }
