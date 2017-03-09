@@ -25,14 +25,29 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xDE-kl-SRw">
                                 <rect key="frame" x="16" y="72" width="343" height="118"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="line" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="yBj-6s-Dfq">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cLG-f1-NtE">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YpN-Q6-5wH">
+                                                <rect key="frame" x="0.0" y="10" width="91.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="line" minimumFontSize="35" translatesAutoresizingMaskIntoConstraints="NO" id="yBj-6s-Dfq">
+                                                <rect key="frame" x="101.5" y="0.0" width="241.5" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="sAX-81-zjl"/>
+                                                </constraints>
+                                                <attributedString key="attributedText"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="FWR-JA-VIg"/>
+                                            <constraint firstItem="yBj-6s-Dfq" firstAttribute="leading" secondItem="YpN-Q6-5wH" secondAttribute="trailing" constant="10" id="Zx0-GQ-bkO"/>
+                                            <constraint firstAttribute="trailing" secondItem="yBj-6s-Dfq" secondAttribute="trailing" id="eB8-pF-X37"/>
                                         </constraints>
-                                        <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                    </textField>
+                                    </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWE-JA-Txw" customClass="TipSlider" customModule="TipsCalculator" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48" width="343" height="70"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,15 +68,47 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="cLG-f1-NtE" firstAttribute="leading" secondItem="xDE-kl-SRw" secondAttribute="leading" id="Apl-Lh-14c"/>
+                                    <constraint firstAttribute="trailing" secondItem="cLG-f1-NtE" secondAttribute="trailing" id="YZF-F6-8GG"/>
                                     <constraint firstItem="rWE-JA-Txw" firstAttribute="leading" secondItem="xDE-kl-SRw" secondAttribute="leading" id="f5v-9w-Ybg"/>
-                                    <constraint firstItem="yBj-6s-Dfq" firstAttribute="top" secondItem="xDE-kl-SRw" secondAttribute="top" id="i7X-Cu-f3e"/>
-                                    <constraint firstAttribute="trailing" secondItem="yBj-6s-Dfq" secondAttribute="trailing" id="orf-7B-6iF"/>
-                                    <constraint firstItem="yBj-6s-Dfq" firstAttribute="leading" secondItem="xDE-kl-SRw" secondAttribute="leading" id="sCY-QE-U3x"/>
+                                    <constraint firstItem="cLG-f1-NtE" firstAttribute="top" secondItem="xDE-kl-SRw" secondAttribute="top" id="v86-CT-2BT"/>
                                     <constraint firstAttribute="trailing" secondItem="rWE-JA-Txw" secondAttribute="trailing" id="ypg-l3-D6L"/>
                                 </constraints>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tEb-Wl-Udr">
+                                <rect key="frame" x="0.0" y="302" width="375" height="365"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZLY-Pu-QZv">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZLY-Pu-QZv" id="BUA-4v-qpX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5s2-zE-9Ew">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5s2-zE-9Ew" id="oli-LY-61n">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="o5S-6q-qzv">
+                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o5S-6q-qzv" id="rIg-YY-VDw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-oj-3za" customClass="ScratchLabel" customModule="TipsCalculator" customModuleProvider="target">
-                                <rect key="frame" x="16" y="282" width="343" height="59"/>
+                                <rect key="frame" x="16" y="235" width="343" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
@@ -93,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704.8" y="37.331334332833585"/>
+            <point key="canvasLocation" x="1704.5" y="36.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="duI-0a-5Up">

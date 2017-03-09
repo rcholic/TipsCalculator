@@ -119,7 +119,7 @@ protocol ScratchLabelDelegate: class {
     
     lazy var numberLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
-        label.sizeToFit()
+//        label.sizeToFit()
         label.text = ""
         label.font = UIFont.systemFont(ofSize: self.fontSize)
         label.textAlignment = .center
