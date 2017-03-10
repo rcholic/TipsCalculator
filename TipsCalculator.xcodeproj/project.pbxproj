@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB5BEFA51E724ECC00D49AB8 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5BEFA41E724ECC00D49AB8 /* Double+Ext.swift */; };
+		EB5BEFA91E724EF400D49AB8 /* ScratchLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5BEFA71E724EF400D49AB8 /* ScratchLabel.swift */; };
+		EB5BEFAA1E724EF400D49AB8 /* TipSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5BEFA81E724EF400D49AB8 /* TipSlider.swift */; };
+		EB5BEFAD1E724F0E00D49AB8 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5BEFAC1E724F0E00D49AB8 /* Configuration.swift */; };
 		EB6A68741E67A42B00F6412D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68731E67A42B00F6412D /* AppDelegate.swift */; };
 		EB6A68761E67A42B00F6412D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68751E67A42B00F6412D /* ViewController.swift */; };
 		EB6A68791E67A42B00F6412D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6A68771E67A42B00F6412D /* Main.storyboard */; };
@@ -14,9 +18,6 @@
 		EB6A687E1E67A42B00F6412D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6A687C1E67A42B00F6412D /* LaunchScreen.storyboard */; };
 		EB6A68891E67A42B00F6412D /* TipsCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68881E67A42B00F6412D /* TipsCalculatorTests.swift */; };
 		EB6A68941E67A42B00F6412D /* TipsCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68931E67A42B00F6412D /* TipsCalculatorUITests.swift */; };
-		EB6A68A41E67A46B00F6412D /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68A31E67A46B00F6412D /* Double+Ext.swift */; };
-		EB6A68A61E67A49500F6412D /* ScratchLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A68A51E67A49500F6412D /* ScratchLabel.swift */; };
-		EB8A6E831E6CB7D300AF4DB7 /* TipSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB5BEFA41E724ECC00D49AB8 /* Double+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
+		EB5BEFA71E724EF400D49AB8 /* ScratchLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScratchLabel.swift; sourceTree = "<group>"; };
+		EB5BEFA81E724EF400D49AB8 /* TipSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipSlider.swift; sourceTree = "<group>"; };
+		EB5BEFAC1E724F0E00D49AB8 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		EB6A68701E67A42B00F6412D /* TipsCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipsCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6A68731E67A42B00F6412D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB6A68751E67A42B00F6412D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,9 +55,6 @@
 		EB6A688F1E67A42B00F6412D /* TipsCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TipsCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6A68931E67A42B00F6412D /* TipsCalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsCalculatorUITests.swift; sourceTree = "<group>"; };
 		EB6A68951E67A42B00F6412D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB6A68A31E67A46B00F6412D /* Double+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
-		EB6A68A51E67A49500F6412D /* ScratchLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScratchLabel.swift; sourceTree = "<group>"; };
-		EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB5BEFA31E724ECC00D49AB8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EB5BEFA41E724ECC00D49AB8 /* Double+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		EB5BEFA61E724EF400D49AB8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EB5BEFA71E724EF400D49AB8 /* ScratchLabel.swift */,
+				EB5BEFA81E724EF400D49AB8 /* TipSlider.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EB5BEFAB1E724F0E00D49AB8 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EB5BEFAC1E724F0E00D49AB8 /* Configuration.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		EB6A68671E67A42B00F6412D = {
 			isa = PBXGroup;
 			children = (
@@ -103,8 +130,9 @@
 		EB6A68721E67A42B00F6412D /* TipsCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				EB6A68A21E67A45900F6412D /* Extension */,
-				EB6A68A11E67A44400F6412D /* View */,
+				EB5BEFAB1E724F0E00D49AB8 /* Config */,
+				EB5BEFA61E724EF400D49AB8 /* View */,
+				EB5BEFA31E724ECC00D49AB8 /* Extension */,
 				EB6A68731E67A42B00F6412D /* AppDelegate.swift */,
 				EB6A68751E67A42B00F6412D /* ViewController.swift */,
 				EB6A68771E67A42B00F6412D /* Main.storyboard */,
@@ -131,23 +159,6 @@
 				EB6A68951E67A42B00F6412D /* Info.plist */,
 			);
 			path = TipsCalculatorUITests;
-			sourceTree = "<group>";
-		};
-		EB6A68A11E67A44400F6412D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				EB6A68A51E67A49500F6412D /* ScratchLabel.swift */,
-				EB8A6E821E6CB7D300AF4DB7 /* TipSlider.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		EB6A68A21E67A45900F6412D /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				EB6A68A31E67A46B00F6412D /* Double+Ext.swift */,
-			);
-			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,11 +297,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB8A6E831E6CB7D300AF4DB7 /* TipSlider.swift in Sources */,
+				EB5BEFAA1E724EF400D49AB8 /* TipSlider.swift in Sources */,
+				EB5BEFAD1E724F0E00D49AB8 /* Configuration.swift in Sources */,
+				EB5BEFA51E724ECC00D49AB8 /* Double+Ext.swift in Sources */,
+				EB5BEFA91E724EF400D49AB8 /* ScratchLabel.swift in Sources */,
 				EB6A68761E67A42B00F6412D /* ViewController.swift in Sources */,
-				EB6A68A61E67A49500F6412D /* ScratchLabel.swift in Sources */,
 				EB6A68741E67A42B00F6412D /* AppDelegate.swift in Sources */,
-				EB6A68A41E67A46B00F6412D /* Double+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,11 +28,24 @@ class ViewController: UIViewController {
     }
     
     fileprivate func setupView() {
+        setupNavbar()
         subtotalTextField.delegate = self
         tipSlider.delegate = self
         tipSlider.fraction = CGFloat(tipsPercentage) // TODO: replace with default in settings
+        scratchLabel.backgroundColor = self.view.tintColor.withAlphaComponent(0.5)
         scratchLabel.delegate = self
-        subtotalTextField.placeholder = "$" // TODO: replace with local currency in the setting
+        subtotalTextField.placeholder = "\(Configuration.currencySymbol)"
+    }
+    
+    fileprivate func setupNavbar() {
+        self.navigationController?.navigationBar.barTintColor = self.view.tintColor // UIColor.init(red: 0, green: 0.24, blue: 0.45, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.title = "Tips Calculator"
+        let textShadow = NSShadow()
+        textShadow.shadowColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+        textShadow.shadowOffset = CGSize(width: 0, height: 1)
+        let fontAttr = UIFont(name: "HelveticaNeue-CondensedBlack", size: 25)
+        self.navigationController?.navigationBar.titleTextAttributes = NSDictionary(objects: [UIColor.white, textShadow, fontAttr!], forKeys: [NSForegroundColorAttributeName as NSCopying, NSShadowAttributeName as NSCopying, NSFontAttributeName as NSCopying]) as? [String : AnyObject]
     }
 }
 
