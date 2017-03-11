@@ -8,7 +8,7 @@
 User settings such as *Currency Symbol* and *Default tipping percentage* are saved in **Data.plist** file on the iOS device
 
 #### Requirements:
-* XCode 8.2.1
+* XCode 8.2.1 or above
 * Swift 3
 
 #### Features coming soon:
