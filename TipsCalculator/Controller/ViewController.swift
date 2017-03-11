@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     var tipsPercentage: Double = 0.0 // 20%
     
+    var currencySymbol: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -30,8 +32,9 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        subtotalTextField.placeholder = Configuration.shared.currencySymbol
-        // TODO: update the currency label in both the text field and the scratch label
+        currencySymbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+        subtotalTextField.placeholder = currencySymbol
+        
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).floatValue
         tipSlider.fraction = CGFloat(fraction)
@@ -86,6 +89,7 @@ extension ViewController: UITextFieldDelegate {
                 }
             }
         }
+        
         if let sub = Double(subtotalText){
            subtotal = sub/100.0
             self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(subtotal)
@@ -119,7 +123,6 @@ extension ViewController: TipSliderDelegate {
 extension ViewController {
     
     func formatCurrency(_ string: String) -> String? {
-        
         let count = string.characters.count
         
         if count > 1 {
@@ -130,41 +133,15 @@ extension ViewController {
                 return ""
             }
         }
-    
-        let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.currency
-        formatter.locale = Locale.current // NSLocale(localeIdentifier: "en_US") as Locale!
+        
+        //        let formatter = NumberFormatter()
+        //        formatter.numberStyle = NumberFormatter.Style.currency
+        //        formatter.locale = Locale.current // NSLocale(localeIdentifier: "en_US") as Locale!
         let numberFromField = (NSString(string: string).doubleValue)/100
-        return formatter.string(from: NSNumber(value: numberFromField))
+        //
+        //        return formatter.string(from: NSNumber(value: numberFromField))
+        
+        return "\(currencySymbol)\(numberFromField)"
     }
-    
-//    func formatCurrency(_ string: String) {
-//        print("format \(string)")
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .currency
-//        formatter.locale = findLocaleByCurrencyCode("USD")
-//        let numberFromField = (NSString(string: subtotalText).doubleValue)/100
-//        if let temp = formatter.string(from: NSNumber(value: numberFromField)) {
-//            self.subtotalTextField.text = String(temp.characters.dropFirst())
-//        }
-//        
-////        self.subtotalTextField.text = String(describing: temp!.characters.dropFirst())
-//    }
-//    
-//    func findLocaleByCurrencyCode(_ currencyCode: String) -> Locale? {
-//        
-//        let locales = Locale.availableIdentifiers
-//        var locale: Locale?
-//        for   localeId in locales {
-//            locale = Locale(identifier: localeId)
-//            if let code = (locale! as NSLocale).object(forKey: NSLocale.Key.currencyCode) as? String {
-//                if code == currencyCode {
-//                    return locale
-//                }   
-//            } 
-//        }
-//        
-//        return locale
-//    }
 }
 
