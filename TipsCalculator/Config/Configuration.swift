@@ -8,26 +8,28 @@
 
 import Foundation
 
+let CURRENCY_SYMBOL = "CurrencySymbol"
+let TIPS_PERCENT = "DefaultTipPct"
+let LOCAL_CURRENCY_SYMBOL = Locale.current.currencySymbol ?? "$"
+
 struct Configuration {
     
-    static var currencySymbol: String = NSLocale.current.currencySymbol ?? "$"
+    lazy var currencySymbol: String = {
+        return DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+    }()
+    
     static var language: String = Locale.current.languageCode ?? "en"
     
     typealias doneAction = () -> Void
     
-    public static let shared = Configuration()
+    public static var shared = Configuration()
     
     fileprivate init() {}
     
     public func saveUserSettings(currencySymbol: String, tip percentage: Float, doneAction done: doneAction?) {
-        print("saving user settings: \(currencySymbol), \(percentage) ")
         
-        if DataManager.shared.save(currencySymbol, for: "CurrencySymbol") {
-            print("success saving currency symbol!")
-        } else {
-            print("failed at saving currency symbol!")
-        }
-        DataManager.shared.save(percentage, for: "DefaultTipPct")
+        let _ = DataManager.shared.save(currencySymbol, for: CURRENCY_SYMBOL)
+        let _ = DataManager.shared.save(percentage, for: TIPS_PERCENT)
         
         guard let action = done else { return }
         action() // trigger the action

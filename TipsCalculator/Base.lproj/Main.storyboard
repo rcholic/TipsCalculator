@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tips Calculator-->
+        <!--Tip Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TipsCalculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -75,7 +75,7 @@
                                     <constraint firstAttribute="trailing" secondItem="rWE-JA-Txw" secondAttribute="trailing" id="ypg-l3-D6L"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-oj-3za" customClass="ScratchLabel" customModule="TipsCalculator" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-oj-3za" customClass="ScratchLabel" customModule="TipsCalculator" customModuleProvider="target">
                                 <rect key="frame" x="16" y="235" width="343" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,7 +99,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="xDE-kl-SRw" secondAttribute="trailing" id="ukp-cQ-GV1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tips Calculator" id="7ef-BC-wUy">
+                    <navigationItem key="navigationItem" title="Tip Calculator" id="7ef-BC-wUy">
                         <barButtonItem key="rightBarButtonItem" image="ic_settings" id="OmM-Cx-K4p">
                             <connections>
                                 <action selector="didTapUserSettings:" destination="BYZ-38-t0r" id="uLg-25-dbc"/>
@@ -135,24 +135,29 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5JN-E2-h9c">
-                                                    <rect key="frame" x="8" y="21" width="359" height="30"/>
-                                                    <subviews>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="line" placeholder="$" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c8G-hF-yOV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
-                                                            <attributedString key="attributedText"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                    </subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="line" placeholder="$" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c8G-hF-yOV">
+                                                    <rect key="frame" x="8" y="16" width="100" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="zQG-eP-cqJ"/>
+                                                        <constraint firstAttribute="width" constant="100" id="y3H-M5-IhW"/>
                                                     </constraints>
-                                                </stackView>
+                                                    <attributedString key="attributedText"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eeo-4Y-IPa">
+                                                    <rect key="frame" x="116" y="23" width="249" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="120" id="uCZ-05-rUn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="5JN-E2-h9c" firstAttribute="leading" secondItem="cYS-Et-l1u" secondAttribute="leadingMargin" id="7HL-96-se4"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5JN-E2-h9c" secondAttribute="trailing" id="K3l-Qk-BW0"/>
-                                                <constraint firstItem="5JN-E2-h9c" firstAttribute="centerY" secondItem="cYS-Et-l1u" secondAttribute="centerY" id="k9l-hs-sod"/>
+                                                <constraint firstItem="Eeo-4Y-IPa" firstAttribute="centerY" secondItem="c8G-hF-yOV" secondAttribute="centerY" id="1Ea-n2-G71"/>
+                                                <constraint firstItem="Eeo-4Y-IPa" firstAttribute="leading" secondItem="c8G-hF-yOV" secondAttribute="trailing" constant="8" id="Fal-ae-jVx"/>
+                                                <constraint firstItem="c8G-hF-yOV" firstAttribute="leading" secondItem="cYS-Et-l1u" secondAttribute="leadingMargin" constant="8" id="LIx-SG-1bZ"/>
+                                                <constraint firstItem="c8G-hF-yOV" firstAttribute="centerY" secondItem="cYS-Et-l1u" secondAttribute="centerY" id="SeJ-jt-DMO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -161,7 +166,7 @@
                             <tableViewSection headerTitle="Default Tips Percentage" id="KHp-VF-qpu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="133" id="2GM-Lh-yYr">
-                                        <rect key="frame" x="0.0" y="175" width="375" height="133"/>
+                                        <rect key="frame" x="0.0" y="176" width="375" height="133"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2GM-Lh-yYr" id="Kyh-Bl-ej1">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
@@ -214,6 +219,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="currencyTextField" destination="c8G-hF-yOV" id="SDv-mD-vqt"/>
+                        <outlet property="errorLabel" destination="Eeo-4Y-IPa" id="7we-GH-txM"/>
                         <outlet property="tipSlider" destination="GTl-7F-7JV" id="GMf-v7-Oh9"/>
                     </connections>
                 </tableViewController>

@@ -24,11 +24,13 @@ protocol ScratchLabelDelegate: class {
         didSet {
             guard number > 0 else {
                 self.numberLabel.text = ""
+                self.isHidden = true
                 return
             }
+            self.isHidden = false
             // replace $ with local currency in the settings
             let formattedNum = Double(number).roundTo(places: 2).stringFormattedWithSeparator
-            self.numberLabel.text = "Total: \(Configuration.currencySymbol)\(formattedNum)"
+            self.numberLabel.text = " Total = \(Configuration.shared.currencySymbol)\(formattedNum)"
             self.step = number / 1000 // dynamic step size
         }
     }
@@ -37,9 +39,9 @@ protocol ScratchLabelDelegate: class {
         didSet {
             switch isHighlighted {
             case true:
-                self.backgroundColor = tintColor.withAlphaComponent(0.2)
-            default:
-                self.backgroundColor = UIColor.clear
+                self.highlightBorder(color: UIColor.orange)
+            default: break
+//                self.layer.borderWidth = 0
             }
         }
     }
@@ -58,8 +60,7 @@ protocol ScratchLabelDelegate: class {
     
     fileprivate func commonInit() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin,
-            .flexibleBottomMargin]
+        self.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         
         self.addSubview(numberLabel)
         addGesture()
@@ -67,7 +68,7 @@ protocol ScratchLabelDelegate: class {
     
     override func layoutSubviews() {
         numberLabel.frame = self.bounds
-        let size = self.intrinsicContentSize
+//        let size = self.intrinsicContentSize
         self.layoutIfNeeded()
     }
     
@@ -85,12 +86,18 @@ protocol ScratchLabelDelegate: class {
         panGesture = nil
     }
     
+    fileprivate func highlightBorder(color: UIColor) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = 2.0
+    }
+    
     @objc func tapped(_ sender: UIPanGestureRecognizer) {
         
         var beginPoint: CGPoint = CGPoint.zero
         switch sender.state {
         case .began:
             beginPoint = sender.velocity(in: self)
+            highlightBorder(color: UIColor.orange)
         case .changed:
             let curPanPoint =  sender.velocity(in: self) // sender.translation(in: self)
             
@@ -107,11 +114,13 @@ protocol ScratchLabelDelegate: class {
             }
             
             self.number = number + n * step
-            
             delegate?.scratchLabel(self, number: self.number) // notify the changes
+            
+            highlightBorder(color: UIColor.orange)
             
         default:
             beginPoint = CGPoint.zero
+            self.layer.borderWidth = 0
         }
     }
     

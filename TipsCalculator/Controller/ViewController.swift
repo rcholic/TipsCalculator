@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     var subtotal: Double = 0
     
-    var tipsPercentage: Double = 0.2 // 20%
+    var tipsPercentage: Double = 0.0 // 20%
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,10 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let tipRecord = DataManager.shared.retrieve(for: "DefaultTipPct")
-        let fraction = (tipRecord as! NSNumber).doubleValue
+        subtotalTextField.placeholder = Configuration.shared.currencySymbol
+        // TODO: update the currency label in both the text field and the scratch label
+        let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
+        let fraction = (tipRecord as! NSNumber).floatValue
         tipSlider.fraction = CGFloat(fraction)
     }
     
@@ -42,13 +44,17 @@ class ViewController: UIViewController {
         
         scratchLabel.backgroundColor = self.view.tintColor.withAlphaComponent(0.5)
         scratchLabel.delegate = self
-        subtotalTextField.placeholder = "\(Configuration.currencySymbol)"
+        
+        // hide the scratch label if its number is 0
+//        if scratchLabel.number == 0 {
+//            scratchLabel.isHidden = true
+//        }
     }
     
     fileprivate func setupNavbar() {
         self.navigationController?.navigationBar.barTintColor = self.view.tintColor // UIColor.init(red: 0, green: 0.24, blue: 0.45, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.title = "Tips Calculator"
+        self.title = "Tip Calculator"
         let textShadow = NSShadow()
         textShadow.shadowColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
         textShadow.shadowOffset = CGSize(width: 0, height: 1)
@@ -85,12 +91,9 @@ extension ViewController: UITextFieldDelegate {
                 }
             }
         }
-        if let sub = Double(subtotalText) {
-            scratchLabel.isHidden = false
-            subtotal = sub/100.0
+        if let sub = Double(subtotalText){
+           subtotal = sub/100.0
             self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(subtotal)
-        } else {
-            scratchLabel.isHidden = true
         }
         
         return false
@@ -99,15 +102,13 @@ extension ViewController: UITextFieldDelegate {
 
 extension ViewController: ScratchLabelDelegate {
     func scratchLabel(_ scratchLabel: ScratchLabel, number: CGFloat) {
-        print("number: \(number)")
         
         guard subtotal > 0 else {
-            // hide the scratch and tip label here
+            // TODO: hide the scratch and tip label here
             return
         }
         
         tipsPercentage = (Double(number) - subtotal) / subtotal
-        let tipPct = (tipsPercentage * 100).roundTo(places: 2)
         self.tipSlider.fraction = CGFloat(tipsPercentage) // update tipSlider
     }
 }
@@ -116,8 +117,6 @@ extension ViewController: TipSliderDelegate {
     func tipSlider(_ slider: TipSlider, value changedTo: Float) {
 
         guard subtotal > 0 else { return }
-        print("slider value: \(changedTo), subtotal: \(subtotal)")
-        
         self.scratchLabel.number = (1.0 + CGFloat(changedTo)) * CGFloat(subtotal)
     }
 }
@@ -139,10 +138,9 @@ extension ViewController {
     
         let formatter = NumberFormatter()
         formatter.numberStyle = NumberFormatter.Style.currency
-        formatter.locale = NSLocale(localeIdentifier: "en_US") as Locale!
-        var numberFromField = (NSString(string: string).doubleValue)/100
+        formatter.locale = Locale.current // NSLocale(localeIdentifier: "en_US") as Locale!
+        let numberFromField = (NSString(string: string).doubleValue)/100
         return formatter.string(from: NSNumber(value: numberFromField))
-//        println(textField.text )
     }
     
 //    func formatCurrency(_ string: String) {

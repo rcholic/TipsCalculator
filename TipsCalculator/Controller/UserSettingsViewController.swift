@@ -14,6 +14,8 @@ class UserSettingsViewController: UITableViewController {
 
     @IBOutlet weak var tipSlider: TipSlider!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     var defaultTipPct: CGFloat = 0.0
     
     override func viewDidLoad() {
@@ -23,13 +25,16 @@ class UserSettingsViewController: UITableViewController {
         
         self.navigationItem.rightBarButtonItem = saveButton
         
+        currencyTextField.delegate = self
         tipSlider.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let tipRecord = DataManager.shared.retrieve(for: "DefaultTipPct")
+        errorLabel.isHidden = true
+        currencyTextField.text = Configuration.shared.currencySymbol
+        let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).doubleValue 
         tipSlider.fraction = CGFloat(fraction)
     }
@@ -37,11 +42,15 @@ class UserSettingsViewController: UITableViewController {
     @objc fileprivate func didTapDoneButton(sender: UIBarButtonItem) {
         
         guard let symbol = self.currencyTextField.text, symbol.characters.count == 1 else {
-            print("symbol is nil, dude")
+            errorLabel.text = "Invalid Input"
+            errorLabel.isHidden = false
             return
         }
         
-        Configuration.shared.saveUserSettings(currencySymbol: self.currencyTextField.text ?? "$", tip: Float(defaultTipPct)) {
+        errorLabel.text = ""
+        errorLabel.isHidden = true
+        
+        Configuration.shared.saveUserSettings(currencySymbol: self.currencyTextField.text ?? Configuration.shared.currencySymbol, tip: Float(defaultTipPct)) {
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -70,7 +79,37 @@ class UserSettingsViewController: UITableViewController {
 }
 
 extension UserSettingsViewController: TipSliderDelegate {
+    
     func tipSlider(_ slider: TipSlider, value changedTo: Float) {
         defaultTipPct = CGFloat(changedTo)
+    }
+}
+
+extension UserSettingsViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text, text.characters.count == 1 else {
+            
+            errorLabel.text = "Invalid Input"
+            errorLabel.isHidden = false
+            return
+        }
+        
+        errorLabel.text = ""
+        errorLabel.isHidden = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text, text.characters.count == 1 else {
+            
+            errorLabel.text = "Invalid Input"
+            errorLabel.isHidden = false
+            return
+        }
+        
+        errorLabel.text = ""
+        errorLabel.isHidden = true
     }
 }

@@ -21,7 +21,6 @@ class TipSlider: UIControl {
             self.slider.value = Float(fraction)
             self.valueChanged(sender: self.slider)
         }
-        
     }
     
     @IBInspectable
@@ -79,37 +78,6 @@ class TipSlider: UIControl {
         slider.addTarget(self, action: #selector(self.valueChanged(sender:)), for: UIControlEvents.valueChanged)
         addSubview(slider)
         addSubview(arrowLabelView)
-        
-//        let singleCoinImageView = UIImageView(image: singleCoinImage)
-//        singleCoinImageView.frame = CGRect(x: 0, y: 0, width: coinWidth, height: coinWidth)
-//        singleCoinImageView.contentMode = .scaleAspectFill
-//        singleCoinImageView.tintColor = tintColor
-//        
-//        let tripleCoinImageView = UIImageView(image: tripleCoinImage)
-//        tripleCoinImageView.frame = CGRect(x: self.bounds.width - coinWidth, y: 0, width: coinWidth, height: coinWidth)
-//        tripleCoinImageView.contentMode = .scaleAspectFill
-//        
-//        let vStackView = UIStackView(frame: CGRect(x: coinWidth, y: 0, width: self.bounds.width - 2 * coinWidth, height: self.bounds.height))
-//        
-//        vStackView.addArrangedSubview(arrowLabelView)
-//        vStackView.addArrangedSubview(slider)
-//        vStackView.axis = .vertical
-//        vStackView.distribution = .equalSpacing
-//        vStackView.alignment = .leading
-//        vStackView.spacing = 0
-//        vStackView.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(vStackView)
-//        
-//        let hStackView = UIStackView(frame: self.bounds)
-//        hStackView.addArrangedSubview(singleCoinImageView)
-//        hStackView.addArrangedSubview(vStackView)
-//        hStackView.addArrangedSubview(tripleCoinImageView)
-//        hStackView.axis = .horizontal
-//        hStackView.distribution = .equalSpacing
-//        hStackView.alignment = .center
-//        hStackView.spacing = 0
-//        hStackView.translatesAutoresizingMaskIntoConstraints = false
-//        self.addSubview(hStackView)
     }
     
     deinit {
@@ -134,6 +102,7 @@ class TipSlider: UIControl {
         self.label.text = text // update label
         
         switch curValue {
+
         case 0..<0.2:
             slider.setThumbImage(singleCoinImage, for: [.normal])
             slider.setThumbImage(singleCoinImage, for: [.highlighted])
@@ -153,7 +122,6 @@ class TipSlider: UIControl {
         default:
             curX = curValue
         }
-        // move the arrow label along
         arrowLabelView.center = CGPoint(x: CGFloat(curX) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
         
         delegate?.tipSlider(self, value: curValue) // notify delegate of the changed value
@@ -183,12 +151,10 @@ class TipSlider: UIControl {
     lazy var arrowLabelView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 40))
         //        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1).withAlphaComponent(0.4)
-        
         let arrowWidth : CGFloat = 8
         let arrowHeight : CGFloat = 10
         let radius: CGFloat = 6.0
         let arrowPoint = CGPoint(x: view.bounds.width/2.0, y: view.bounds.maxY)
-        
         
         let path = UIBezierPath()
         path.lineJoinStyle = .round
@@ -233,8 +199,6 @@ class TipSlider: UIControl {
         
         // add the label
         view.addSubview(self.label)
-        // initialize the fraction number
-        //        self.fraction = CGFloat(self.slider.value)
         
         return view
     }()

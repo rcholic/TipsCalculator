@@ -10,7 +10,7 @@ import Foundation
 
 struct DataManager {
     
-    static var shared = DataManager()
+    public static var shared = DataManager()
     
     fileprivate var docDirectory: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -19,14 +19,13 @@ struct DataManager {
     }
     
     var dataFilePath: String? {
-//        guard let docPath = self.docDirectory else { return nil }
-//        return docPath.appending("Data.plist")
-        
-        return Bundle.main.path(forResource: "Data", ofType: "plist")
+        guard let docPath = self.docDirectory else { return nil }
+        return docPath.appending("Data.plist")
     }
     
     var dict: NSMutableDictionary? {
-        return NSMutableDictionary(contentsOfFile: self.dataFilePath!)
+        guard let filePath = self.dataFilePath else { return nil }
+        return NSMutableDictionary(contentsOfFile: filePath)
     }
     
     let fileManager = FileManager.default
@@ -41,26 +40,11 @@ struct DataManager {
         }
     }
     
-//    fileprivate func getAllValues() -> NSMutableDictionary {
-//        guard let dict = NSMutableDictionary(contentsOfFile: dataFilePath!) else {
-//            let dictionary = NSMutableDictionary(object: "first record", forKey: "first_test_key" as NSCopying)
-//            return dictionary
-//        }
-//        
-//        return dict
-//    }
-    
     func save(_ value: Any, for key: String) -> Bool {
         guard let dict = dict else { return false }
         
-
-//        dict.setValue(value, forKey: key)
         dict.setObject(value, forKey: key as NSCopying)
         dict.write(toFile: dataFilePath!, atomically: true)
-        
-        // confirm
-        let resultDict = NSMutableDictionary(contentsOfFile: dataFilePath!)
-        print("saving, dict: \(resultDict)")
         
         return true
     }
