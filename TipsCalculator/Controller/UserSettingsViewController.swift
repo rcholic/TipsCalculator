@@ -24,8 +24,8 @@ class UserSettingsViewController: UITableViewController {
         let saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.didTapDoneButton(sender:)))
         
         self.navigationItem.rightBarButtonItem = saveButton
-        
-        currencyTextField.delegate = self
+
+        currencyTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         tipSlider.delegate = self
     }
     
@@ -33,7 +33,8 @@ class UserSettingsViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         errorLabel.isHidden = true
-        currencyTextField.text = Configuration.shared.currencySymbol
+        currencyTextField.text = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+        // Configuration.shared.currencySymbol
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).doubleValue 
         tipSlider.fraction = CGFloat(fraction)
@@ -41,18 +42,29 @@ class UserSettingsViewController: UITableViewController {
     
     @objc fileprivate func didTapDoneButton(sender: UIBarButtonItem) {
         
-        guard let symbol = self.currencyTextField.text, symbol.characters.count == 1 else {
-            errorLabel.text = "Invalid Input"
-            errorLabel.isHidden = false
-            return
-        }
+        let isValid = validateTextfield(textField: currencyTextField, charsRequired: 1, warnLabel: errorLabel)
         
-        errorLabel.text = ""
-        errorLabel.isHidden = true
+        guard isValid else { return }
         
         Configuration.shared.saveUserSettings(currencySymbol: self.currencyTextField.text ?? Configuration.shared.currencySymbol, tip: Float(defaultTipPct)) {
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @objc fileprivate func textFieldDidChange(textField: UITextField) {
+        let _ = validateTextfield(textField: textField, charsRequired: 1, warnLabel: errorLabel)
+    }
+    
+    fileprivate func validateTextfield(textField: UITextField, charsRequired count: Int, warnLabel: UILabel) -> Bool {
+        guard let text = textField.text, text.characters.count == count else {
+            warnLabel.text = "Invalid Input: 1 chracter is required"
+            warnLabel.isHidden = false
+            return false
+        }
+        
+        warnLabel.text = ""
+        warnLabel.isHidden = true
+        return true
     }
 
     // MARK: - Table view data source
@@ -82,34 +94,5 @@ extension UserSettingsViewController: TipSliderDelegate {
     
     func tipSlider(_ slider: TipSlider, value changedTo: Float) {
         defaultTipPct = CGFloat(changedTo)
-    }
-}
-
-extension UserSettingsViewController: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        guard let text = textField.text, text.characters.count == 1 else {
-            
-            errorLabel.text = "Invalid Input"
-            errorLabel.isHidden = false
-            return
-        }
-        
-        errorLabel.text = ""
-        errorLabel.isHidden = true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        guard let text = textField.text, text.characters.count == 1 else {
-            
-            errorLabel.text = "Invalid Input"
-            errorLabel.isHidden = false
-            return
-        }
-        
-        errorLabel.text = ""
-        errorLabel.isHidden = true
     }
 }

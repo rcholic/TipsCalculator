@@ -30,7 +30,8 @@ protocol ScratchLabelDelegate: class {
             self.isHidden = false
             // replace $ with local currency in the settings
             let formattedNum = Double(number).roundTo(places: 2).stringFormattedWithSeparator
-            self.numberLabel.text = " Total = \(Configuration.shared.currencySymbol)\(formattedNum)"
+            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+            self.numberLabel.text = " Total = \(symbol)\(formattedNum)"
             self.step = number / 1000 // dynamic step size
         }
     }
@@ -115,7 +116,6 @@ protocol ScratchLabelDelegate: class {
             
             self.number = number + n * step
             delegate?.scratchLabel(self, number: self.number) // notify the changes
-            
             highlightBorder(color: UIColor.orange)
             
         default:

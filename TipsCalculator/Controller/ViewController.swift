@@ -44,11 +44,6 @@ class ViewController: UIViewController {
         
         scratchLabel.backgroundColor = self.view.tintColor.withAlphaComponent(0.5)
         scratchLabel.delegate = self
-        
-        // hide the scratch label if its number is 0
-//        if scratchLabel.number == 0 {
-//            scratchLabel.isHidden = true
-//        }
     }
     
     fileprivate func setupNavbar() {
