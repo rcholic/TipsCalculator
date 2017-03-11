@@ -16,11 +16,12 @@ import UIKit
 class TipSlider: UIControl {
     
     @IBInspectable
-    var fraction: CGFloat = 0.0 {
+    var fraction: CGFloat = 0.0 {        
         didSet {
             self.slider.value = Float(fraction)
             self.valueChanged(sender: self.slider)
         }
+        
     }
     
     @IBInspectable
