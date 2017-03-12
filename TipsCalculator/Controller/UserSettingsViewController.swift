@@ -34,7 +34,9 @@ class UserSettingsViewController: UITableViewController {
         
         errorLabel.isHidden = true
         currencyTextField.text = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
-        // Configuration.shared.currencySymbol
+            // Configuration.shared.currencySymbol
+        currencyTextField.becomeFirstResponder()
+        
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).doubleValue 
         tipSlider.fraction = CGFloat(fraction)

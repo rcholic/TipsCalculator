@@ -39,16 +39,17 @@ class ViewController: UIViewController {
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).floatValue
         tipSlider.fraction = CGFloat(fraction)
-        
         let now = Date()
-        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) < 10 else {
-            NSLog("diff is more than 10")
+        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) < TIME_DIFFERENCE_MIN else {
+            NSLog("time diff is more than 10")
             return
         }
 
         // populate fields with the last bill within 10 minutes
+        subtotal = lastBill.billAmount
         self.subtotalTextField.text = "\(currencySymbol)\(lastBill.billAmount)"
         self.tipSlider.fraction = CGFloat(lastBill.tipsFraction)
+        self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(lastBill.billAmount)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
