@@ -28,8 +28,8 @@ protocol ScratchLabelDelegate: class {
                 return
             }
             self.isHidden = false
-            // replace $ with local currency in the settings
-            let formattedNum = Double(number).roundTo(places: 2).stringFormattedWithSeparator
+            let tempNum = Double(number).roundTo(places: 2)
+            let formattedNum = NumberFormatter.localizedString(from: NSNumber(value: tempNum), number: NumberFormatter.Style.decimal)
             let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
             self.numberLabel.text = " Total = \(symbol)\(formattedNum)"
             self.step = number / 1000 // dynamic step size
@@ -41,8 +41,8 @@ protocol ScratchLabelDelegate: class {
             switch isHighlighted {
             case true:
                 self.highlightBorder(color: UIColor.orange)
-            default: break
-//                self.layer.borderWidth = 0
+            default:
+                self.layer.borderWidth = 0
             }
         }
     }
@@ -69,7 +69,6 @@ protocol ScratchLabelDelegate: class {
     
     override func layoutSubviews() {
         numberLabel.frame = self.bounds
-//        let size = self.intrinsicContentSize
         self.layoutIfNeeded()
     }
     
@@ -84,6 +83,7 @@ protocol ScratchLabelDelegate: class {
     }
     
     deinit {
+        removeGestureRecognizer(panGesture)
         panGesture = nil
     }
     
@@ -126,7 +126,7 @@ protocol ScratchLabelDelegate: class {
     
     lazy var numberLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
-//        label.sizeToFit()
+        label.sizeToFit()
         label.text = ""
         label.font = UIFont.systemFont(ofSize: self.fontSize)
         label.textAlignment = .center

@@ -8,6 +8,12 @@
 
 import UIKit
 
+public extension UIColor {
+    public convenience init(rgb: (r: CGFloat, g: CGFloat, b: CGFloat)) {
+        self.init(red: rgb.r/255, green: rgb.g/255, blue: rgb.b/255, alpha: 1.0)
+    }
+}
+
 @objc protocol TipSliderDelegate: class {
     func tipSlider(_ slider: TipSlider, value changedTo: Float)
 }
@@ -56,8 +62,24 @@ class TipSlider: UIControl {
     
     let tripleCoinImage = UIImage(named: "triple_coins")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     
-    
     var slider: UISlider!
+    
+    let arrowShape = CAShapeLayer()
+    
+    var displaylink: CADisplayLink? // for animation
+    
+    let animColors: [UIColor] = [
+        UIColor(rgb: (255, 255, 153)),
+        UIColor(rgb: (255, 204, 204)),
+        UIColor(rgb: (153, 102, 153)),
+        UIColor(rgb: (255, 102, 102)),
+        UIColor(rgb: (255, 255, 102)),
+        UIColor(rgb: (244, 67, 54)),
+        UIColor(rgb: (102, 102, 102)),
+        UIColor(rgb: (204, 204, 0)),
+        UIColor(rgb: (102, 102, 102)),
+        UIColor(rgb: (153, 153, 51))
+    ]
     
     weak var delegate: TipSliderDelegate?
     
@@ -109,18 +131,24 @@ class TipSlider: UIControl {
             if curValue == 0 {
                 curX = curValue + 0.035
             }
+            stopAnimation()
+            
         case 0.2..<0.5:
             slider.setThumbImage(doubleCoinImage, for: .normal)
             slider.setThumbImage(doubleCoinImage, for: .highlighted)
+            stopAnimation()
+            
         case 0.5..<1.1:
             slider.setThumbImage(tripleCoinImage, for: [.normal])
             slider.setThumbImage(tripleCoinImage, for: [.highlighted])
             if curValue == 1.0 {
                 curX = curValue - 0.035
             }
+            startAnimation()
             
         default:
             curX = curValue
+            stopAnimation()
         }
         arrowLabelView.center = CGPoint(x: CGFloat(curX) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
         
@@ -138,9 +166,64 @@ class TipSlider: UIControl {
         
     }
     
+    fileprivate func stopAnimation() {
+        arrowShape.removeAllAnimations()
+        arrowShape.fillColor = self.fillColor.cgColor
+        arrowShape.strokeColor = self.tintColor.cgColor
+    }
+    
+    // MARK: add animation when slider goes beyong 50% as a warning
+    fileprivate func startAnimation() {
+        self.arrowShape.removeAllAnimations()
+        
+        arrowShape.fillColor = UIColor.yellow.withAlphaComponent(0.8).cgColor
+        let bgColorAnimation: CAAnimation = { [weak self]  in
+            let animation = CABasicAnimation(keyPath: "backgroundColor")
+            animation.delegate = self
+//            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            animation.fromValue = self?.arrowShape.fillColor
+            animation.toValue = UIColor.red.withAlphaComponent(0.7).cgColor
+            animation.duration = 1.0
+            return animation
+        }()
+        
+        let xScaleAnimation = { Void -> CAAnimation in
+            let animation = CABasicAnimation(keyPath: "transform.scale.x")
+            animation.delegate = self
+            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            animation.fromValue = NSNumber(value: 1 as Float)
+            animation.toValue = NSNumber(value: 0.9 as Float)
+            animation.duration = 1.0
+            return animation
+        }()
+        
+        let group = CAAnimationGroup()
+        group.animations = [xScaleAnimation, bgColorAnimation]
+        group.repeatCount = HUGE
+        group.duration = 1.0
+        
+        arrowShape.add(group, forKey: "ring_animation")
+        
+        startFlash()
+    }
+    
+    fileprivate func startFlash() {
+        displaylink = CADisplayLink(target: self, selector: #selector(flashAction))
+        if #available(iOS 10.0, *) {
+            displaylink?.preferredFramesPerSecond = 6
+        }else {
+            displaylink?.frameInterval = 10
+        }
+        displaylink?.add(to: .current, forMode: .commonModes)
+    }
+    
+    @objc fileprivate func flashAction() {
+        arrowShape.strokeColor = animColors[Int(arc4random())%animColors.count].cgColor
+    }
+    
     lazy var label: UILabel = {
         let lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-        lbl.font = UIFont.systemFont(ofSize: 15)
+        lbl.font = UIFont.systemFont(ofSize: 14)
         lbl.textColor = .black
         lbl.backgroundColor = .clear
         lbl.textAlignment = .center
@@ -150,7 +233,6 @@ class TipSlider: UIControl {
     
     lazy var arrowLabelView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 40))
-        //        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1).withAlphaComponent(0.4)
         let arrowWidth : CGFloat = 8
         let arrowHeight : CGFloat = 10
         let radius: CGFloat = 6.0
@@ -189,17 +271,30 @@ class TipSlider: UIControl {
                     clockwise: false)
         path.close()
         
-        let arrowShape = CAShapeLayer()
-        arrowShape.path = path.cgPath
-        arrowShape.fillColor = self.fillColor.cgColor
-        arrowShape.strokeColor = self.borderColor.cgColor
-        arrowShape.lineWidth = 1.0
+        self.arrowShape.path = path.cgPath
+        self.arrowShape.fillColor = self.fillColor.cgColor
+        self.arrowShape.strokeColor = self.borderColor.cgColor
+        self.arrowShape.lineWidth = 1.0
         
-        view.layer.insertSublayer(arrowShape, at: 0)
+        view.layer.insertSublayer(self.arrowShape, at: 0)
         
         // add the label
         view.addSubview(self.label)
         
         return view
     }()
+}
+
+extension TipSlider: CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            print("did stop animationst")
+            displaylink?.invalidate()
+            displaylink = nil
+            self.arrowShape.removeAllAnimations()
+            self.arrowShape.fillColor = self.fillColor.cgColor
+            self.arrowShape.strokeColor = self.borderColor.cgColor
+        }
+    }
 }
