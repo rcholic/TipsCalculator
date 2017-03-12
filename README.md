@@ -21,6 +21,9 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 * User Settings page allow user to **override** the locale currency symbol, which has a validator for the number of characters, because one may want to use £ when he/she is in the UK even though their phone locale settings are USD $.
+* The scratch label (**ScratchLabel**) allows user to change the tips and total amount by panning left/right on the screen
+* The tip slider (**TipSlider**) allows user to change tips amount, and it gives a warning through animation when tipping is >= 50% of the bill amount
+* Synchronization of the ScratchLabel and TipSlider objects
 
 ## Video Walkthrough
 
