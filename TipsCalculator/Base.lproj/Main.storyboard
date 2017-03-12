@@ -81,7 +81,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                        <real key="value" value="30"/>
+                                        <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="step">
                                         <real key="value" value="0.10000000000000001"/>
@@ -166,7 +166,7 @@
                             <tableViewSection headerTitle="Default Tips Percentage" id="KHp-VF-qpu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="133" id="2GM-Lh-yYr">
-                                        <rect key="frame" x="0.0" y="176" width="375" height="133"/>
+                                        <rect key="frame" x="0.0" y="175" width="375" height="133"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2GM-Lh-yYr" id="Kyh-Bl-ej1">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>

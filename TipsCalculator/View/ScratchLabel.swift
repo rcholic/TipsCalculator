@@ -23,6 +23,7 @@ protocol ScratchLabelDelegate: class {
     @IBInspectable var number: CGFloat = 0 {
         didSet {
             guard number > 0 else {
+                self.tipAmount = 0
                 self.numberLabel.text = ""
                 self.isHidden = true
                 return
@@ -30,11 +31,30 @@ protocol ScratchLabelDelegate: class {
             self.isHidden = false
             let tempNum = Double(number).roundTo(places: 2)
             let formattedNum = NumberFormatter.localizedString(from: NSNumber(value: tempNum), number: NumberFormatter.Style.decimal)
-            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
-            self.numberLabel.text = " Total = \(symbol)\(formattedNum)"
+            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
+            self.numberLabel.text = "Total: \(symbol)\(formattedNum)"
             self.step = number / 1000 // dynamic step size
         }
     }
+    
+    var tipAmount: Double = 0.0 {
+        didSet {
+            guard tipAmount > 0 else {
+                tipLabel.isHidden = true
+                self.animateNumberLabel(isFullSize: true)
+                return
+            }
+            tipLabel.isHidden = false
+            self.animateNumberLabel(isFullSize: false)
+            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
+            tipLabel.text = "\(symbol)\(tipAmount.roundTo(places: 2)) tips included"
+        }
+    }
+
+    // FIXME: this needs to be eager fetch
+//    var currencySymbol: String = {
+//        return DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
+//    }()
     
     override var isHighlighted: Bool {
         didSet {
@@ -64,17 +84,28 @@ protocol ScratchLabelDelegate: class {
         self.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         
         self.addSubview(numberLabel)
+        self.addSubview(tipLabel)
         addGesture()
     }
     
     override func layoutSubviews() {
-        numberLabel.frame = self.bounds
-        self.layoutIfNeeded()
+//        numberLabel.frame = numberLabelRect
     }
     
     fileprivate func addGesture() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
         addGestureRecognizer(panGesture)
+    }
+    
+    // MARK: change the frame size of the numberLabel using animation
+    fileprivate func animateNumberLabel(isFullSize: Bool) {
+        let numLblTargetRect = isFullSize ? self.bounds : self.numberLabelRect
+        let tipLblTargetRect = isFullSize ? CGRect.zero : self.tipLabelRect
+        
+        UIView.animate(withDuration: 0.5) {
+            self.numberLabel.frame = numLblTargetRect
+            self.tipLabel.frame = tipLblTargetRect
+        }
     }
     
     internal override func prepareForInterfaceBuilder() {
@@ -124,13 +155,32 @@ protocol ScratchLabelDelegate: class {
         }
     }
     
+    lazy var numberLabelRect: CGRect = {
+        return CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height * 2/3)
+    }()
+    
     lazy var numberLabel: UILabel = {
-        let label = UILabel(frame: CGRect.zero)
+        let label = UILabel(frame: self.numberLabelRect)
         label.sizeToFit()
         label.text = ""
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: self.fontSize)
         label.textAlignment = .center
-        label.clipsToBounds = true
+//        label.clipsToBounds = true
+        
+        return label
+    }()
+
+    lazy var tipLabelRect: CGRect = {
+        
+        return CGRect(origin: CGPoint(x: 0, y: self.bounds.height/3 + 12), size: CGSize(width: self.bounds.width, height: 30))
+    }()
+    lazy var tipLabel: UILabel = {
+        let label = UILabel(frame: self.tipLabelRect)
+        label.text = ""
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textAlignment = .center
         
         return label
     }()

@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     
     var subtotal: Double = 0
     
+    var tipAmount: Double = 0
+    
     var tipsPercentage: Double = 0.0 // 20%
     
     var currencySymbol: String = ""
@@ -47,9 +49,13 @@ class ViewController: UIViewController {
 
         // populate fields with the last bill within 10 minutes
         subtotal = lastBill.billAmount
+        
         self.subtotalTextField.text = "\(currencySymbol)\(lastBill.billAmount)"
         self.tipSlider.fraction = CGFloat(lastBill.tipsFraction)
         self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(lastBill.billAmount)
+        
+        tipAmount = lastBill.billAmount * Double(lastBill.tipsFraction)
+        self.scratchLabel.tipAmount = tipAmount
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -113,6 +119,7 @@ extension ViewController: UITextFieldDelegate {
         if let sub = Double(subtotalText){
            subtotal = sub/100.0
             self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(subtotal)
+            self.scratchLabel.tipAmount = Double(self.tipSlider.fraction) * subtotal
         }
         
         return false
@@ -140,6 +147,7 @@ extension ViewController: TipSliderDelegate {
         guard subtotal > 0 else { return }
         
         self.scratchLabel.number = (1.0 + CGFloat(changedTo)) * CGFloat(subtotal)
+        self.scratchLabel.tipAmount = Double(changedTo) * subtotal
     }
 }
 
