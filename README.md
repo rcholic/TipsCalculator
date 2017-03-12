@@ -20,7 +20,7 @@ The following **optional** features are implemented:
 * [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
-* User Settings page allow user to override the locale currency symbol, which has a validator for the number of characters
+* User Settings page allow user to **override** the locale currency symbol, which has a validator for the number of characters, because one may want to use £ when he/she is in the UK even though their phone locale settings are USD $.
 
 ## Video Walkthrough
 
@@ -35,7 +35,7 @@ Here's a walkthrough of implemented user stories:
 * User settings such as *Currency Symbol* and *Default tipping percentage* are saved in **Data.plist** file on the iOS device
 
 ## License
-    **The MIT License**
+    The MIT License
     Copyright (c) [Tony Wang] https://github.com/rcholic/TipsCalculator
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
