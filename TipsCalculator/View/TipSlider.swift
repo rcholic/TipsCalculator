@@ -54,8 +54,6 @@ class TipSlider: UIControl {
     
     @IBInspectable var borderColor: UIColor = #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1)
     
-    let coinWidth: CGFloat = 40.0
-    
     let singleCoinImage = UIImage(named: "single_coin")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     
     let doubleCoinImage = UIImage(named: "double_coin")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)

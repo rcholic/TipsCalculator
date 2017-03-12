@@ -50,7 +50,9 @@ class ViewController: UIViewController {
         // populate fields with the last bill within 10 minutes
         subtotal = lastBill.billAmount
         
-        self.subtotalTextField.text = "\(currencySymbol)\(lastBill.billAmount)"
+        let localizedNumStr = NumberFormatter.localizedString(from: NSNumber(value: subtotal), number: NumberFormatter.Style.decimal)
+        
+        self.subtotalTextField.text = "\(currencySymbol)\(localizedNumStr)"
         self.tipSlider.fraction = CGFloat(lastBill.tipsFraction)
         self.scratchLabel.number = (1.0 + CGFloat(self.tipSlider.fraction)) * CGFloat(lastBill.billAmount)
         
