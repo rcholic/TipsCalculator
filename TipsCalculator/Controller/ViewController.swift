@@ -39,13 +39,31 @@ class ViewController: UIViewController {
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
         let fraction = (tipRecord as! NSNumber).floatValue
         tipSlider.fraction = CGFloat(fraction)
+        
+        let now = Date()
+        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) <= 100 else {
+            NSLog("diff is more than 10")
+            return
+        }
+
+        // populate fields with the last bill within 10 minutes
+        self.subtotalTextField.text = "\(currencySymbol)\(lastBill.billAmount)"
+        self.tipSlider.fraction = CGFloat(lastBill.tipsFraction)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        guard subtotal > 0 else { return }
+        // save the bill
+        let bill = Bill(billAmount: subtotal, tipsFraction: Float(tipsPercentage))
+        let _ = DataManager.shared.saveBill(last: bill)
     }
     
     fileprivate func setupView() {
         setupNavbar()
         subtotalTextField.delegate = self
         tipSlider.delegate = self
-        
         scratchLabel.backgroundColor = self.view.tintColor.withAlphaComponent(0.5)
         scratchLabel.delegate = self
     }
@@ -117,7 +135,9 @@ extension ViewController: ScratchLabelDelegate {
 extension ViewController: TipSliderDelegate {
     func tipSlider(_ slider: TipSlider, value changedTo: Float) {
 
+        tipsPercentage = Double(changedTo) // update this variable
         guard subtotal > 0 else { return }
+        
         self.scratchLabel.number = (1.0 + CGFloat(changedTo)) * CGFloat(subtotal)
     }
 }

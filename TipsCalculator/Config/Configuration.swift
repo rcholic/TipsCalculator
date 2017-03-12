@@ -10,7 +10,9 @@ import Foundation
 
 let CURRENCY_SYMBOL = "CurrencySymbol"
 let TIPS_PERCENT = "DefaultTipPct"
+let BILL_KEY = "LastBill"
 let LOCAL_CURRENCY_SYMBOL = Locale.current.currencySymbol ?? "$"
+let TIME_DIFFERENCE_MIN = 10 // 10 minutes
 
 struct Configuration {
     
@@ -34,5 +36,4 @@ struct Configuration {
         guard let action = done else { return }
         action() // trigger the action
     }
-    
 }

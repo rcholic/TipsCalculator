@@ -60,4 +60,18 @@ struct DataManager {
         
         return dict.object(forKey: key)
     }
+    
+    func saveBill(last bill: Bill) -> Bool {
+        let encoded = NSKeyedArchiver.archivedData(withRootObject: bill)
+        return save(encoded, for: BILL_KEY)
+    }
+    
+    func retriveLastBill() -> Bill? {
+        guard let encoded = retrieve(for: BILL_KEY) as? Data,
+            let bill = NSKeyedUnarchiver.unarchiveObject(with: encoded) as? Bill else {
+            return nil
+        }
+        
+        return bill
+    }
 }
