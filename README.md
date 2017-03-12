@@ -31,7 +31,7 @@ Here's a walkthrough of implemented user stories:
 
 ## Notes
 * Implemented custom views/controls for code reuse throughout the app. For example, the custom **TipSlider** widget is used in two screens
-* A custom label named **ScratchLabel** was created to allow user tapping for incrementing/decrementing the total bill amount
+* A custom label named **ScratchLabel** was created to allow user panning for incrementing/decrementing the total bill amount
 * The delegate pattern is widely used across the app for event-driven UI updates
 * Implemented singleton-based configuration and service structs, e.g. **DataManager** and **Configuration**
 * User settings such as *Currency Symbol* and *Default tipping percentage* are saved in **Data.plist** file on the iOS device
