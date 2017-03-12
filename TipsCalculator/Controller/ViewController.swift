@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         tipSlider.fraction = CGFloat(fraction)
         
         let now = Date()
-        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) <= 100 else {
+        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) < 10 else {
             NSLog("diff is more than 10")
             return
         }
