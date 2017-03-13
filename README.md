@@ -30,7 +30,6 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories:
 ![](./screencast/tip_calculator_screen1.gif)
 
-![](./screencast/tip_calculator_screen2.gif)
 
 ## Notes
 * Implemented custom views/controls for code reuse throughout the app. For example, the custom **TipSlider** widget is used in two screens
