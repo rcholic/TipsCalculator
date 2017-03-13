@@ -31,7 +31,8 @@ protocol ScratchLabelDelegate: class {
             self.isHidden = false
             let tempNum = Double(number).roundTo(places: 2)
             let formattedNum = NumberFormatter.localizedString(from: NSNumber(value: tempNum), number: NumberFormatter.Style.decimal)
-            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
+            let symbol = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
+                // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
             self.numberLabel.text = "Total: \(symbol)\(formattedNum)"
             self.step = number / 1000 // dynamic step size
         }
@@ -46,7 +47,8 @@ protocol ScratchLabelDelegate: class {
             }
             tipLabel.isHidden = false
             self.animateNumberLabel(isFullSize: false)
-            let symbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
+            let symbol = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
+                // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
             tipLabel.text = "\(symbol)\(tipAmount.roundTo(places: 2)) tips included"
         }
     }

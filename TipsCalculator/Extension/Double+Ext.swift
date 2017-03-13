@@ -25,6 +25,6 @@ extension Double {
     }
     
     var stringFormattedWithSeparator: String {
-        return Number.formatterWithSeparator.string(from: self as! NSNumber) ?? ""
+        return Number.formatterWithSeparator.string(from: self as NSNumber) ?? ""
     }
 }

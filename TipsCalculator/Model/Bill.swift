@@ -11,7 +11,7 @@ import Foundation
 class Bill: NSObject, NSCoding {
     let billAmount: Double
     let tipsFraction: Float
-    var timestamp: Date?
+    let timestamp: Date
     
     init(billAmount: Double, tipsFraction: Float) {
         self.billAmount = billAmount
@@ -32,10 +32,10 @@ class Bill: NSObject, NSCoding {
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.billAmount, forKey:"bill_amount")
         aCoder.encode(self.tipsFraction, forKey:"tips_fraction")
-        aCoder.encode(self.timestamp! as Date, forKey:"timestamp")
+        aCoder.encode(self.timestamp as Date, forKey:"timestamp")
     }
     
     override var hash: Int {
-        return timestamp?.hashValue ?? billAmount.hashValue
+        return timestamp.hashValue
     }
 }

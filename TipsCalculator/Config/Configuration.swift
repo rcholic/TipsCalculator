@@ -11,13 +11,13 @@ import Foundation
 let CURRENCY_SYMBOL = "CurrencySymbol"
 let TIPS_PERCENT = "DefaultTipPct"
 let BILL_KEY = "LastBill"
-let LOCAL_CURRENCY_SYMBOL = Locale.current.currencySymbol ?? "$"
+let LOCAL_CURRENCY_SYMBOL = Locale.current.currencySymbol
 let TIME_DIFFERENCE_MIN = 10 // 10 minutes
 
 struct Configuration {
     
     lazy var currencySymbol: String = {
-        return DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+        return LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
     }()
     
     static var language: String = Locale.current.languageCode ?? "en"

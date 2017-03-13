@@ -106,12 +106,24 @@ class TipSlider: UIControl {
         arrowLabelView.removeFromSuperview()
     }
     
+    // MARK: adjust the position on x-axis for the arrowLabelView
+    fileprivate func deltaXForArrowLabelView(sliderValue curValue: Float) -> Float {
+        
+        if curValue == 0 {
+            return curValue + 0.035
+        } else if curValue == 1 {
+            return curValue - 0.035
+        }
+        
+        return curValue
+    }
     
     override func layoutSubviews() {
 
         slider.frame = CGRect(x: 0, y: arrowLabelView.bounds.height, width: self.bounds.width, height: self.bounds.height/2)
 
-        arrowLabelView.center = CGPoint(x: CGFloat(slider.value) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
+        let curX = deltaXForArrowLabelView(sliderValue: slider.value)
+        arrowLabelView.center = CGPoint(x: CGFloat(curX) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
     }
     
     @objc func valueChanged(sender: UISlider) {
@@ -126,9 +138,7 @@ class TipSlider: UIControl {
         case 0..<0.2:
             slider.setThumbImage(singleCoinImage, for: [.normal])
             slider.setThumbImage(singleCoinImage, for: [.highlighted])
-            if curValue == 0 {
-                curX = curValue + 0.035
-            }
+            curX = deltaXForArrowLabelView(sliderValue: curValue)
             stopAnimation()
             
         case 0.2..<0.5:
@@ -139,9 +149,7 @@ class TipSlider: UIControl {
         case 0.5..<1.1:
             slider.setThumbImage(tripleCoinImage, for: [.normal])
             slider.setThumbImage(tripleCoinImage, for: [.highlighted])
-            if curValue == 1.0 {
-                curX = curValue - 0.035
-            }
+            curX = deltaXForArrowLabelView(sliderValue: curValue)
             startAnimation()
             
         default:
@@ -156,7 +164,7 @@ class TipSlider: UIControl {
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         let textLabel = UILabel()
-        textLabel.text = "Slider View!"
+        textLabel.text = "TipSlider View!"
         textLabel.textAlignment = .center
         textLabel.font = UIFont.systemFont(ofSize: 20)
         self.addSubview(textLabel)
@@ -166,6 +174,9 @@ class TipSlider: UIControl {
     
     fileprivate func stopAnimation() {
         arrowShape.removeAllAnimations()
+        displaylink?.remove(from: RunLoop.current, forMode: .commonModes)
+        displaylink?.invalidate()
+        displaylink = nil
         arrowShape.fillColor = self.fillColor.cgColor
         arrowShape.strokeColor = self.tintColor.cgColor
     }
@@ -175,15 +186,16 @@ class TipSlider: UIControl {
         self.arrowShape.removeAllAnimations()
         
         arrowShape.fillColor = UIColor.yellow.withAlphaComponent(0.8).cgColor
+        
         let bgColorAnimation: CAAnimation = { [weak self]  in
             let animation = CABasicAnimation(keyPath: "backgroundColor")
             animation.delegate = self
-//            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            //            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             animation.fromValue = self?.arrowShape.fillColor
             animation.toValue = UIColor.red.withAlphaComponent(0.7).cgColor
             animation.duration = 1.0
             return animation
-        }()
+            }()
         
         let xScaleAnimation = { Void -> CAAnimation in
             let animation = CABasicAnimation(keyPath: "transform.scale.x")
@@ -281,6 +293,26 @@ class TipSlider: UIControl {
         
         return view
     }()
+    
+//    let bgColorAnimation: CAAnimation = { Void -> CAAnimation  in
+//        let animation = CABasicAnimation(keyPath: "backgroundColor")
+//        animation.delegate = self as! CAAnimationDelegate?
+//        //            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+//        animation.fromValue = self?.arrowShape.fillColor
+//        animation.toValue = UIColor.red.withAlphaComponent(0.7).cgColor
+//        animation.duration = 1.0
+//        return animation
+//        }()
+//    
+//    let xScaleAnimation = { Void -> CAAnimation in
+//        let animation = CABasicAnimation(keyPath: "transform.scale.x")
+//        animation.delegate = self as! CAAnimationDelegate?
+//        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+//        animation.fromValue = NSNumber(value: 1 as Float)
+//        animation.toValue = NSNumber(value: 0.9 as Float)
+//        animation.duration = 1.0
+//        return animation
+//    }()
 }
 
 extension TipSlider: CAAnimationDelegate {
@@ -288,6 +320,7 @@ extension TipSlider: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
             print("did stop animationst")
+            displaylink?.remove(from: RunLoop.current, forMode: .commonModes)
             displaylink?.invalidate()
             displaylink = nil
             self.arrowShape.removeAllAnimations()

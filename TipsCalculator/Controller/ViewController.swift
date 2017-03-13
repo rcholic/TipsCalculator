@@ -34,7 +34,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        currencySymbol = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+        currencySymbol = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
+            // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
         subtotalTextField.placeholder = currencySymbol
         subtotalTextField.becomeFirstResponder()
         
@@ -42,7 +43,7 @@ class ViewController: UIViewController {
         let fraction = (tipRecord as! NSNumber).floatValue
         tipSlider.fraction = CGFloat(fraction)
         let now = Date()
-        guard let lastBill = DataManager.shared.retriveLastBill(), let billTime = lastBill.timestamp, now.minutes(from: billTime) < TIME_DIFFERENCE_MIN else {
+        guard let lastBill = DataManager.shared.retriveLastBill(), now.minutes(from: lastBill.timestamp) < TIME_DIFFERENCE_MIN else {
             NSLog("time diff is more than 10")
             return
         }
@@ -66,7 +67,8 @@ class ViewController: UIViewController {
         guard subtotal > 0 else { return }
         // save the bill
         let bill = Bill(billAmount: subtotal, tipsFraction: Float(tipsPercentage))
-        let _ = DataManager.shared.saveBill(last: bill)
+        let saved = DataManager.shared.saveBill(last: bill)
+        print("saved bill? \(saved)")
     }
     
     fileprivate func setupView() {
@@ -78,7 +80,7 @@ class ViewController: UIViewController {
     }
     
     fileprivate func setupNavbar() {
-        self.navigationController?.navigationBar.barTintColor = self.view.tintColor // UIColor.init(red: 0, green: 0.24, blue: 0.45, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = self.view.tintColor
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.title = "Tip Calculator"
         let textShadow = NSShadow()

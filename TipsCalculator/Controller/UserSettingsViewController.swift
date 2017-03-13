@@ -33,7 +33,8 @@ class UserSettingsViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         errorLabel.isHidden = true
-        currencyTextField.text = DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String? ?? LOCAL_CURRENCY_SYMBOL
+        currencyTextField.text = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
+            // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
             // Configuration.shared.currencySymbol
         currencyTextField.becomeFirstResponder()
         
