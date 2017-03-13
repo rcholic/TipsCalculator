@@ -43,22 +43,18 @@ struct DataManager {
             
             if let bundlePath = Bundle.main.path(forResource: "Data", ofType: "plist") {
                 do {
-                    let fromURL = NSURL(string: bundlePath)! // URL(string: bundlePath)!
-                    let toURL = NSURL(string: path)!
-                    try fileManager.copyItem(at: fromURL as URL, to: toURL as URL)
+                    try fileManager.copyItem(atPath: bundlePath, toPath: path)
                     NSLog("Copied Data.plist to Document directory")
                 } catch let error {
                     NSLog("Error in copying Data.plist: \(error)")
                 }
-            } else {
-                NSLog("cannot find main bundle")
             }
-            
             return
         }
     }
     
     func save(_ value: Any, for key: String) -> Bool {
+        
         guard let dict = dict else { return false }
         
         dict.setObject(value, forKey: key as NSCopying)
@@ -68,6 +64,7 @@ struct DataManager {
     }
     
     func delete(key: String) -> Bool {
+        
         guard let dict = dict else { return false }
         dict.removeObject(forKey: key)
         return true
@@ -81,7 +78,6 @@ struct DataManager {
     
     func saveBill(last bill: Bill) -> Bool {
         let encoded = NSKeyedArchiver.archivedData(withRootObject: bill)
-        NSLog("saving bill: \(bill)")
         return save(encoded, for: BILL_KEY)
     }
     
@@ -90,7 +86,6 @@ struct DataManager {
             let bill = NSKeyedUnarchiver.unarchiveObject(with: encoded) as? Bill else {
             return nil
         }
-        NSLog("retrieving bill: \(bill)")
         
         return bill
     }

@@ -68,7 +68,6 @@ class ViewController: UIViewController {
         // save the bill
         let bill = Bill(billAmount: subtotal, tipsFraction: Float(tipsPercentage))
         let saved = DataManager.shared.saveBill(last: bill)
-        print("saved bill? \(saved)")
     }
     
     fileprivate func setupView() {
