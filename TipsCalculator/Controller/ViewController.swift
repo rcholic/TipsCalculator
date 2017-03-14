@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         guard subtotal > 0 else { return }
         // save the bill
         let bill = Bill(billAmount: subtotal, tipsFraction: Float(tipsPercentage))
-        let saved = DataManager.shared.saveBill(last: bill)
+        _ = DataManager.shared.saveBill(last: bill)
     }
     
     fileprivate func setupView() {
