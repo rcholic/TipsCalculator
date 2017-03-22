@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     fileprivate func setupNavbar() {
         self.navigationController?.navigationBar.barTintColor = self.view.tintColor
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.title = "Tip Calculator"
+        self.title = "Tip Smartly"
         let textShadow = NSShadow()
         textShadow.shadowColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
         textShadow.shadowOffset = CGSize(width: 0, height: 1)

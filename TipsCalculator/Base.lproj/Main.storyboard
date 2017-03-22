@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NWy-C7-wU5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NWy-C7-wU5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tip Calculator-->
+        <!--Tip Smartly-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TipsCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tip_Smartly" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -48,7 +48,7 @@
                                             <constraint firstAttribute="trailing" secondItem="yBj-6s-Dfq" secondAttribute="trailing" id="eB8-pF-X37"/>
                                         </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWE-JA-Txw" customClass="TipSlider" customModule="TipsCalculator" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWE-JA-Txw" customClass="TipSlider" customModule="Tip_Smartly" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="43" width="343" height="70"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -78,7 +78,7 @@
                                     <constraint firstAttribute="trailing" secondItem="rWE-JA-Txw" secondAttribute="trailing" id="ypg-l3-D6L"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-oj-3za" customClass="ScratchLabel" customModule="TipsCalculator" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-oj-3za" customClass="ScratchLabel" customModule="Tip_Smartly" customModuleProvider="target">
                                 <rect key="frame" x="16" y="235" width="343" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -102,7 +102,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="xDE-kl-SRw" secondAttribute="trailing" id="ukp-cQ-GV1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tip Calculator" id="7ef-BC-wUy">
+                    <navigationItem key="navigationItem" title="Tip Smartly" id="7ef-BC-wUy">
                         <barButtonItem key="rightBarButtonItem" image="ic_settings" id="OmM-Cx-K4p">
                             <connections>
                                 <action selector="didTapUserSettings:" destination="BYZ-38-t0r" id="uLg-25-dbc"/>
@@ -123,7 +123,7 @@
         <!--User Settings View Controller-->
         <scene sceneID="DMA-mD-LB9">
             <objects>
-                <tableViewController storyboardIdentifier="UserSettingsVC" id="Cfz-TR-iOc" customClass="UserSettingsViewController" customModule="TipsCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserSettingsVC" id="Cfz-TR-iOc" customClass="UserSettingsViewController" customModule="Tip_Smartly" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XWZ-0C-I9W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,7 +181,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="TrB-S1-67S"/>
                                                     </constraints>
                                                 </stackView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-7F-7JV" customClass="TipSlider" customModule="TipsCalculator" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-7F-7JV" customClass="TipSlider" customModule="Tip_Smartly" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="31.5" width="335" height="70"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
