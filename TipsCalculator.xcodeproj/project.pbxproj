@@ -50,7 +50,7 @@
 		EB5BEFAC1E724F0E00D49AB8 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		EB5BEFB11E72558600D49AB8 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		EB5BEFB21E72558600D49AB8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EB6A68701E67A42B00F6412D /* TipsCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipsCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB6A68701E67A42B00F6412D /* TipSmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipSmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6A68731E67A42B00F6412D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB6A68781E67A42B00F6412D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB6A687A1E67A42B00F6412D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		EB6A68711E67A42B00F6412D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EB6A68701E67A42B00F6412D /* TipsCalculator.app */,
+				EB6A68701E67A42B00F6412D /* TipSmart.app */,
 				EB6A68841E67A42B00F6412D /* TipsCalculatorTests.xctest */,
 				EB6A688F1E67A42B00F6412D /* TipsCalculatorUITests.xctest */,
 			);
@@ -217,7 +217,7 @@
 			);
 			name = TipsCalculator;
 			productName = TipsCalculator;
-			productReference = EB6A68701E67A42B00F6412D /* TipsCalculator.app */;
+			productReference = EB6A68701E67A42B00F6412D /* TipSmart.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EB6A68831E67A42B00F6412D /* TipsCalculatorTests */ = {
@@ -501,8 +501,8 @@
 				DEVELOPMENT_TEAM = U6H8QF8EBV;
 				INFOPLIST_FILE = TipsCalculator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GWang.TipsCalculator;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = TipSmart;
+				PRODUCT_NAME = TipSmart;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -514,8 +514,8 @@
 				DEVELOPMENT_TEAM = U6H8QF8EBV;
 				INFOPLIST_FILE = TipsCalculator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GWang.TipsCalculator;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = TipSmart;
+				PRODUCT_NAME = TipSmart;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

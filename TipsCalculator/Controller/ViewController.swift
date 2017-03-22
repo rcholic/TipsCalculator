@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         currencySymbol = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
-            // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
         subtotalTextField.placeholder = currencySymbol
         subtotalTextField.becomeFirstResponder()
         
@@ -103,7 +102,6 @@ extension ViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Construct the text that will be in the field if this change is accepted
-        
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
             subtotalText += string

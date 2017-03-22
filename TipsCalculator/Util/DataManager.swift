@@ -37,9 +37,6 @@ struct DataManager {
         }
         
         guard fileManager.fileExists(atPath: path) else {
-//            NSLog("Creating Data.plist")
-//            fileManager.createFile(atPath: path, contents: nil, attributes: nil) // create the file
-//            NSLog("created Data.plist file successfully")
             
             if let bundlePath = Bundle.main.path(forResource: "Data", ofType: "plist") {
                 do {

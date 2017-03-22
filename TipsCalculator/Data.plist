@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultTipPct</key>
-	<real>0.21</real>
+	<real>0.15</real>
 	<key>CurrencySymbol</key>
 	<string>$</string>
 	<key>LastBill</key>

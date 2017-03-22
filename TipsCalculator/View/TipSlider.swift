@@ -121,6 +121,8 @@ class TipSlider: UIControl {
     override func layoutSubviews() {
 
         slider.frame = CGRect(x: 0, y: arrowLabelView.bounds.height, width: self.bounds.width, height: self.bounds.height/2)
+        
+        slider.maximumTrackTintColor = UIColor.red
 
         let curX = deltaXForArrowLabelView(sliderValue: slider.value)
         arrowLabelView.center = CGPoint(x: CGFloat(curX) * self.slider.bounds.size.width, y: self.slider.bounds.size.height/2.0)
@@ -208,6 +210,7 @@ class TipSlider: UIControl {
         }()
         
         let group = CAAnimationGroup()
+        group.delegate = self
         group.animations = [xScaleAnimation, bgColorAnimation]
         group.repeatCount = HUGE
         group.duration = 1.0
@@ -293,26 +296,6 @@ class TipSlider: UIControl {
         
         return view
     }()
-    
-//    let bgColorAnimation: CAAnimation = { Void -> CAAnimation  in
-//        let animation = CABasicAnimation(keyPath: "backgroundColor")
-//        animation.delegate = self as! CAAnimationDelegate?
-//        //            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-//        animation.fromValue = self?.arrowShape.fillColor
-//        animation.toValue = UIColor.red.withAlphaComponent(0.7).cgColor
-//        animation.duration = 1.0
-//        return animation
-//        }()
-//    
-//    let xScaleAnimation = { Void -> CAAnimation in
-//        let animation = CABasicAnimation(keyPath: "transform.scale.x")
-//        animation.delegate = self as! CAAnimationDelegate?
-//        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-//        animation.fromValue = NSNumber(value: 1 as Float)
-//        animation.toValue = NSNumber(value: 0.9 as Float)
-//        animation.duration = 1.0
-//        return animation
-//    }()
 }
 
 extension TipSlider: CAAnimationDelegate {

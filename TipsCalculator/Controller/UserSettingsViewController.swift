@@ -34,8 +34,6 @@ class UserSettingsViewController: UITableViewController {
         
         errorLabel.isHidden = true
         currencyTextField.text = LOCAL_CURRENCY_SYMBOL ?? DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as! String
-            // DataManager.shared.retrieve(for: CURRENCY_SYMBOL) as? String ?? LOCAL_CURRENCY_SYMBOL
-            // Configuration.shared.currencySymbol
         currencyTextField.becomeFirstResponder()
         
         let tipRecord = DataManager.shared.retrieve(for: TIPS_PERCENT)
@@ -45,7 +43,7 @@ class UserSettingsViewController: UITableViewController {
     
     @objc fileprivate func didTapDoneButton(sender: UIBarButtonItem) {
         
-        let isValid = validateTextfield(textField: currencyTextField, charsRequired: 1, warnLabel: errorLabel)
+        let isValid = validateTextfield(textField: currencyTextField, charsMinimum: 1, warnLabel: errorLabel)
         
         guard isValid else { return }
         
@@ -55,12 +53,12 @@ class UserSettingsViewController: UITableViewController {
     }
     
     @objc fileprivate func textFieldDidChange(textField: UITextField) {
-        let _ = validateTextfield(textField: textField, charsRequired: 1, warnLabel: errorLabel)
+        let _ = validateTextfield(textField: textField, charsMinimum: 1, warnLabel: errorLabel)
     }
     
-    fileprivate func validateTextfield(textField: UITextField, charsRequired count: Int, warnLabel: UILabel) -> Bool {
-        guard let text = textField.text, text.characters.count == count else {
-            warnLabel.text = "Invalid Input: 1 chracter is required"
+    fileprivate func validateTextfield(textField: UITextField, charsMinimum count: Int, warnLabel: UILabel) -> Bool {
+        guard let text = textField.text, text.characters.count >= count else {
+            warnLabel.text = "Invalid Input: Symbol Required"
             warnLabel.isHidden = false
             return false
         }

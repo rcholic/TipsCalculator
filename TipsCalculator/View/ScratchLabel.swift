@@ -133,13 +133,8 @@ protocol ScratchLabelDelegate: class {
             beginPoint = sender.velocity(in: self)
             highlightBorder(color: UIColor.orange)
         case .changed:
-            let curPanPoint =  sender.velocity(in: self) // sender.translation(in: self)
-            
-            //            if curPanPoint.x <= self.bounds.minX || curPanPoint.x >= self.bounds.maxX {
-            //                return
-            //            }
-            
-            //            guard curPanPoint.x >= self.bounds.minX && curPanPoint.x <= self.bounds.maxX else { return }
+            let curPanPoint =  sender.velocity(in: self)
+
             let dx: CGFloat = curPanPoint.x - beginPoint.x
             let n = dx.truncatingRemainder(dividingBy: 10.0)
             
