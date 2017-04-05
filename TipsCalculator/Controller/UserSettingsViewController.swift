@@ -16,7 +16,7 @@ class UserSettingsViewController: UITableViewController {
     
     @IBOutlet weak var errorLabel: UILabel!
     
-    var defaultTipPct: CGFloat = 0.0
+    fileprivate var defaultTipPct: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class UserSettingsViewController: UITableViewController {
         let _ = validateTextfield(textField: textField, charsMinimum: 1, warnLabel: errorLabel)
     }
     
-    fileprivate func validateTextfield(textField: UITextField, charsMinimum count: Int, warnLabel: UILabel) -> Bool {
+    private func validateTextfield(textField: UITextField, charsMinimum count: Int, warnLabel: UILabel) -> Bool {
         guard let text = textField.text, text.characters.count >= count else {
             warnLabel.text = "Invalid Input: Symbol Required"
             warnLabel.isHidden = false
@@ -79,16 +79,6 @@ class UserSettingsViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
 }
 
 extension UserSettingsViewController: TipSliderDelegate {

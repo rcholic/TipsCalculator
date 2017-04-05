@@ -38,7 +38,7 @@ protocol ScratchLabelDelegate: class {
         }
     }
     
-    var tipAmount: Double = 0.0 {
+    internal var tipAmount: Double = 0.0 {
         didSet {
             guard tipAmount > 0 else {
                 tipLabel.isHidden = true
@@ -152,11 +152,11 @@ protocol ScratchLabelDelegate: class {
         }
     }
     
-    lazy var numberLabelRect: CGRect = {
+    private lazy var numberLabelRect: CGRect = {
         return CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height * 2/3)
     }()
     
-    lazy var numberLabel: UILabel = {
+    private lazy var numberLabel: UILabel = {
         let label = UILabel(frame: self.numberLabelRect)
         label.sizeToFit()
         label.text = ""
@@ -168,11 +168,11 @@ protocol ScratchLabelDelegate: class {
         return label
     }()
 
-    lazy var tipLabelRect: CGRect = {
+    private lazy var tipLabelRect: CGRect = {
         
         return CGRect(origin: CGPoint(x: 0, y: self.bounds.height/3 + 12), size: CGSize(width: self.bounds.width, height: 30))
     }()
-    lazy var tipLabel: UILabel = {
+    private lazy var tipLabel: UILabel = {
         let label = UILabel(frame: self.tipLabelRect)
         label.text = ""
         label.textColor = .black

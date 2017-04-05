@@ -12,23 +12,23 @@ struct DataManager {
     
     public static let shared = DataManager()
     
-    fileprivate var docDirectory: String? {
+    private var docDirectory: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let docDir = paths.first
         return docDir
     }
     
-    var dataFilePath: String? {
+    private var dataFilePath: String? {
         guard let docPath = self.docDirectory else { return nil }
         return docPath.appending("/Data.plist")
     }
     
-    var dict: NSMutableDictionary? {
+    private var dict: NSMutableDictionary? {
         guard let filePath = self.dataFilePath else { return nil }
         return NSMutableDictionary(contentsOfFile: filePath)
     }
     
-    let fileManager = FileManager.default
+    private let fileManager = FileManager.default
     
     fileprivate init() {
         

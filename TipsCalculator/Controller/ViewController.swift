@@ -16,15 +16,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tipSlider: TipSlider!
     
-    var subtotalText = ""
+    fileprivate var subtotalText = ""
     
-    var subtotal: Double = 0
+    fileprivate var subtotal: Double = 0
     
-    var tipAmount: Double = 0
+    fileprivate var tipAmount: Double = 0
     
-    var tipsPercentage: Double = 0.0 // 20%
+    fileprivate var tipsPercentage: Double = 0.0 // 20%
     
-    var currencySymbol: String = ""
+    fileprivate var currencySymbol: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         _ = DataManager.shared.saveBill(last: bill)
     }
     
-    fileprivate func setupView() {
+    private func setupView() {
         setupNavbar()
         subtotalTextField.delegate = self
         tipSlider.delegate = self
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         scratchLabel.delegate = self
     }
     
-    fileprivate func setupNavbar() {
+    private func setupNavbar() {
         self.navigationController?.navigationBar.barTintColor = self.view.tintColor
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.title = "Tip Smartly"

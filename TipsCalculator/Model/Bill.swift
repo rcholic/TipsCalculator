@@ -9,9 +9,9 @@
 import Foundation
 
 class Bill: NSObject, NSCoding {
-    let billAmount: Double
-    let tipsFraction: Float
-    let timestamp: Date
+    internal let billAmount: Double
+    internal let tipsFraction: Float
+    internal let timestamp: Date
     
     init(billAmount: Double, tipsFraction: Float) {
         self.billAmount = billAmount
