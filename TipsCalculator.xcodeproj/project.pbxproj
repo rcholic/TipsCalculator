@@ -267,8 +267,8 @@
 				TargetAttributes = {
 					EB6A686F1E67A42B00F6412D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = U6H8QF8EBV;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 4G2W3WGX73;
+						ProvisioningStyle = Manual;
 					};
 					EB6A68831E67A42B00F6412D = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -501,13 +501,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = U6H8QF8EBV;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 4G2W3WGX73;
 				INFOPLIST_FILE = TipsCalculator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-G2W3WGX73.rcholic.TipSmart";
+				PRODUCT_BUNDLE_IDENTIFIER = rcholic.TipSmart;
 				PRODUCT_NAME = "Tip Smartly";
+				PROVISIONING_PROFILE = "49a6bf62-f897-412e-80b0-fc51a4e4028f";
+				PROVISIONING_PROFILE_SPECIFIER = "Tip Smartly";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -518,13 +520,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = U6H8QF8EBV;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 4G2W3WGX73;
 				INFOPLIST_FILE = TipsCalculator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-G2W3WGX73.rcholic.TipSmart";
+				PRODUCT_BUNDLE_IDENTIFIER = rcholic.TipSmart;
 				PRODUCT_NAME = "Tip Smartly";
+				PROVISIONING_PROFILE = "49a6bf62-f897-412e-80b0-fc51a4e4028f";
+				PROVISIONING_PROFILE_SPECIFIER = "Tip Smartly";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
